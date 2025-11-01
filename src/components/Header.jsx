@@ -58,23 +58,39 @@ const Header = () => {
     const handleNavClick = useCallback((e, href) => {
         e.preventDefault()
         const targetId = href.replace('#', '')
-        const targetElement = document.getElementById(targetId)
         
-        if (targetElement) {
-            // Get ScrollSmoother instance and use it to scroll
-            const smoother = ScrollTrigger.getById('smooth-scroller')
+        // Get ScrollSmoother instance
+        const smoother = ScrollTrigger.getById('smooth-scroller')
+        
+        // If clicking "Home", scroll to the very top
+        if (targetId === 'hero') {
             if (smoother) {
-                smoother.scrollTo(targetElement, true, 'top top')
+                smoother.scrollTo(0, true)
             } else {
-                // Fallback to regular GSAP scroll
                 gsap.to(window, {
                     duration: 1.5,
-                    scrollTo: {
-                        y: targetElement,
-                        offsetY: 0
-                    },
+                    scrollTo: { y: 0 },
                     ease: 'power2.inOut'
                 })
+            }
+        } else {
+            // For other sections, scroll to the element
+            const targetElement = document.getElementById(targetId)
+            
+            if (targetElement) {
+                if (smoother) {
+                    smoother.scrollTo(targetElement, true, 'top top')
+                } else {
+                    // Fallback to regular GSAP scroll
+                    gsap.to(window, {
+                        duration: 1.5,
+                        scrollTo: {
+                            y: targetElement,
+                            offsetY: 0
+                        },
+                        ease: 'power2.inOut'
+                    })
+                }
             }
         }
 
