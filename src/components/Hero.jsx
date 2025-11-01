@@ -273,7 +273,7 @@ const Transition = () => {
         paused: true,
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: 'top 40%',
+          start: 'top 70%',
           end: 'bottom 30%',
           toggleActions: 'play none none reverse',
           scroller: '#smooth-wrapper'

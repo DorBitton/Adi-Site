@@ -1,1 +1,33 @@
 @import "tailwindcss";
+
+/* Casta Font */
+@font-face {
+  font-family: 'Casta';
+  src: url('/fonts/Casta-Regular.woff2') format('woff2'),
+       url('/fonts/Casta-Regular.woff') format('woff'),
+       url('/fonts/Casta-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Casta';
+  src: url('/fonts/Casta-Italic.woff2') format('woff2'),
+       url('/fonts/Casta-Italic.woff') format('woff'),
+       url('/fonts/Casta-Italic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Lato Font (if needed) */
+@font-face {
+  font-family: 'Lato';
+  src: url('/fonts/Lato-Regular.woff2') format('woff2'),
+       url('/fonts/Lato-Regular.woff') format('woff'),
+       url('/fonts/Lato-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
