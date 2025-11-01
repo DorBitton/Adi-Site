@@ -1,8 +1,9 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { ScrollSmoother } from 'gsap/ScrollSmoother'
 
-gsap.registerPlugin(ScrollTrigger)
+gsap.registerPlugin(ScrollTrigger, ScrollSmoother)
 
 const Projects = () => {  
   const sectionRef = useRef(null)
@@ -19,40 +20,69 @@ const Projects = () => {
   ]
 
   useEffect(() => {
-    let mobileTween, desktopTween;
+    let mobileTween, desktopTween, snapTrigger;
+    let isSnapping = false;
     
     // Delay to ensure ScrollSmoother is ready
     const timer = setTimeout(() => {
       // Mobile animation
       if (sectionRef.current) {
-        gsap.set(sectionRef.current, { opacity: 0, y: 50 })
-        mobileTween = gsap.to(sectionRef.current, {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 80%',
-            toggleActions: 'play reverse play reverse',
-            scroller: '#smooth-wrapper'
+        gsap.set(sectionRef.current, { x: 0, force3D: true })
+        mobileTween = gsap.fromTo(sectionRef.current,
+          {
+            opacity: 0
+          },
+          {
+            opacity: 1,
+            duration: 1,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: 'top 70%',
+              toggleActions: 'play reverse play reverse',
+              scroller: '#smooth-wrapper'
+            }
           }
-        })
+        )
       }
 
       // Desktop animation
       if (desktopSectionRef.current) {
-        gsap.set(desktopSectionRef.current, { opacity: 0, y: 50 })
-        desktopTween = gsap.to(desktopSectionRef.current, {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: desktopSectionRef.current,
-            start: 'top 80%',
-            toggleActions: 'play reverse play reverse',
-            scroller: '#smooth-wrapper'
+        gsap.set(desktopSectionRef.current, { x: 0, force3D: true })
+        desktopTween = gsap.fromTo(desktopSectionRef.current,
+          {
+            opacity: 0
+          },
+          {
+            opacity: 1,
+            duration: 1,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: desktopSectionRef.current,
+              start: 'top 70%',
+              toggleActions: 'play reverse play reverse',
+              scroller: '#smooth-wrapper'
+            }
+          }
+        )
+      }
+
+      // Scroll snap functionality for both mobile and desktop
+      const activeSection = window.innerWidth >= 1024 ? desktopSectionRef.current : sectionRef.current;
+      const smoother = ScrollSmoother.get();
+      
+      if (activeSection && smoother) {
+        snapTrigger = ScrollTrigger.create({
+          trigger: activeSection,
+          start: 'top 60%',
+          end: 'top 35%',
+          scroller: '#smooth-wrapper',
+          onEnter: () => {
+            if (!isSnapping) {
+              isSnapping = true;
+              smoother.scrollTo(activeSection, true, 'top top');
+              setTimeout(() => { isSnapping = false; }, 1200);
+            }
           }
         })
       }
@@ -65,6 +95,7 @@ const Projects = () => {
       clearTimeout(timer)
       if (mobileTween) mobileTween.kill()
       if (desktopTween) desktopTween.kill()
+      if (snapTrigger) snapTrigger.kill()
       ScrollTrigger.getAll().forEach(trigger => {
         if (trigger.vars.trigger === sectionRef.current || trigger.vars.trigger === desktopSectionRef.current) {
           trigger.kill()
@@ -90,13 +121,14 @@ const Projects = () => {
   }
 
   return (
-    <div id="projects" data-speed="0.9">
+    <div id="projects" className="w-full overflow-x-hidden">
       {/* Mobile Layout */}
       <section 
         ref={sectionRef}
         className="pt-16 sm:pt-20 md:pt-24 pb-12 sm:pb-16 md:pb-20 lg:hidden flex justify-center items-center px-4 sm:px-6"
+        style={{ transform: 'translateZ(0)', willChange: 'opacity, transform' }}
       >
-        <div className="bg-[#93472D] shadow-2xl p-6 sm:p-8 md:p-12 w-full max-w-4xl rounded-lg">
+        <div className="bg-[#93472D] shadow-2xl p-6 sm:p-8 md:p-12 w-full max-w-4xl rounded-lg box-border">
           {projects.map((project) => (
             <div 
               key={project.id}
@@ -138,28 +170,33 @@ const Projects = () => {
       {/* Desktop Layout */}
       <section 
         ref={desktopSectionRef}
-        className="hidden lg:flex justify-center items-center"
-        style={{ paddingTop: '8vw', paddingBottom: '8vw' }}
+        className="hidden lg:flex justify-center items-center w-full"
+        style={{ 
+          paddingTop: '8vw', 
+          paddingBottom: '8vw',
+          transform: 'translateZ(0)',
+          willChange: 'opacity, transform'
+        }}
       >
         <div 
-          className="bg-[#93472D]"
+          className="bg-[#93472D] box-border"
           style={{ 
             padding: '2vw',
-            width: '95vw',
-            maxWidth: '2800px'
+            width: '90vw',
+            maxWidth: 'min(90vw, 2800px)'
           }}
         >
           {projects.map((project, index) => (
             <div 
               key={project.id}
-              className={`grid grid-cols-1 lg:grid-cols-2 items-center h-full ${
+              className={`grid grid-cols-1 lg:grid-cols-2 items-center h-full box-border ${
                 index !== projects.length - 1 ? 'mb-8' : ''
               }`}
               style={{ gap: '2vw' }}
             >
               {/* Project Info */}
               <div 
-                className={`${index % 2 === 1 ? 'lg:order-2' : ''}`}
+                className={`box-border ${index % 2 === 1 ? 'lg:order-2' : ''}`}
                 style={{ padding: '2vw' }}
               >
                 <div 
@@ -193,11 +230,11 @@ const Projects = () => {
               </div>
 
               {/* Project Image */}
-              <div className={`relative h-full flex justify-center items-center ${
+              <div className={`relative h-full flex justify-center items-center box-border ${
                 index % 2 === 1 ? 'lg:order-1' : ''
               }`}>
                 <div 
-                  className="w-full h-full rounded-2xl overflow-hidden cursor-pointer"
+                  className="w-full h-full rounded-2xl overflow-hidden cursor-pointer box-border"
                   onClick={() => window.open(`/project/${project.id}`, '_blank')}
                   onMouseEnter={handleMouseEnter}
                   onMouseLeave={handleMouseLeave}
@@ -205,7 +242,7 @@ const Projects = () => {
                   <img 
                     src={project.image} 
                     alt={project.title} 
-                    className="w-full h-full object-contain"
+                    className="w-full h-full object-contain max-w-full"
                   />
                 </div>
               </div>

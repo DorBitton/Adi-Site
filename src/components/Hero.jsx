@@ -335,7 +335,6 @@ const Transition = () => {
   ref={sectionRef}
   id="Transition" 
   className="min-h-screen lg:hidden px-4 sm:px-6 py-12 sm:py-20 bg-[#F7EFE2] flex items-center justify-center"
-  data-speed="0.8"
 >
   <div className="transition-mobile space-y-16 max-w-2xl mx-auto opacity-0">
     {/* Titles */}
@@ -403,7 +402,6 @@ const Transition = () => {
       <section 
         id="Transition" 
         className="min-h-[60vh] px-6 py-20 relative hidden lg:block bg-[#F7EFE2]"
-        data-speed="0.9"
       >
         <div className="max-w-7xl mx-auto h-full flex items-center">
           

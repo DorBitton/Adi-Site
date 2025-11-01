@@ -19,7 +19,7 @@ const App = () => {
       wrapper: '#smooth-wrapper',
       content: '#smooth-content',
       smooth: 1.2,
-      effects: true,
+      effects: false,
       normalizeScroll: true,
       id: 'smooth-scroller' // Add ID so we can reference it from Header
     })

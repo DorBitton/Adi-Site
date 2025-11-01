@@ -1,5 +1,16 @@
 @import "tailwindcss";
 
+/* Global box-sizing */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Prevent horizontal overflow globally */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
 /* ScrollSmoother setup */
 #smooth-wrapper {
   position: fixed;
@@ -8,11 +19,19 @@
   overflow: hidden;
   top: 0;
   left: 0;
+  overflow-x: hidden;
+  max-width: 100vw;
 }
 
 #smooth-content {
   overflow: visible;
+  overflow-x: hidden;
   width: 100%;
+  max-width: 100vw;
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* Ensure header stays fixed and outside smooth scroll */
