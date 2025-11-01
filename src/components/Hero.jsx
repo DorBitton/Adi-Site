@@ -233,20 +233,19 @@ const Transition = () => {
     // Variables to hold the GSAP instances for cleanup
     let mobileTween;
     let tl;
-    let timeoutId;
+    let initTimeout;
     
-    // Calculate hero animation duration (matching Hero component timing)
-    const heroStartDelay = 700
-    const heroPhrasesDelay = 600
-    const heroWordDelay = 150
-    const heroTotalWords = 14 // Total words in hero animation
-    const heroPhraseCount = 4
-    const heroTotalAnimationTime = heroStartDelay + (heroPhraseCount * heroPhrasesDelay) + (heroTotalWords * heroWordDelay)
-    const heroSubtextDelay = 400
-    const heroCompleteTime = heroTotalAnimationTime + heroSubtextDelay
-    
-    // Delay initialization until hero animations complete
-    timeoutId = setTimeout(() => {
+    // Wait a bit for ScrollSmoother to be ready
+    initTimeout = setTimeout(() => {
+      // Set initial state
+      gsap.set('.transition-mobile', { opacity: 0, y: 30 })
+      gsap.set('.transition-videos-left', { opacity: 0, x: -50 })
+      gsap.set('.transition-titles', { opacity: 0, x: 50 })
+      gsap.set('.transition-icons-container', { opacity: 0 })
+      gsap.set('.transition-icons', { opacity: 0, y: 30 })
+      gsap.set('.transition-text-container', { opacity: 0 })
+      gsap.set('.transition-text-right', { opacity: 0, x: 50 })
+
       // Mobile layout fade in
       mobileTween = gsap.fromTo('.transition-mobile',
         {
@@ -258,22 +257,26 @@ const Transition = () => {
           y: 0,
           duration: 1,
           ease: 'power2.out',
+          paused: true,
           scrollTrigger: {
             trigger: sectionRef.current,
             start: 'top 70%',
-            end: 'bottom 20%',
-            toggleActions: 'play none none reverse'
+            end: 'bottom 30%',
+            toggleActions: 'play none none reverse',
+            scroller: '#smooth-wrapper'
           }
         }
       )
 
       // Desktop layout animations
       tl = gsap.timeline({
+        paused: true,
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: 'top 70%',
-          end: 'bottom 20%',
-          toggleActions: 'play none none reverse'
+          start: 'top 40%',
+          end: 'bottom 30%',
+          toggleActions: 'play none none reverse',
+          scroller: '#smooth-wrapper'
         }
       })
 
@@ -306,11 +309,11 @@ const Transition = () => {
         { opacity: 1, x: 0, duration: 0.8, stagger: 0.15, ease: 'power2.out' },
         '-=0.4'
       )
-    }, heroCompleteTime)
+    }, 500)
 
     return () => {
-      // Clear the timeout if component unmounts before hero completes
-      if (timeoutId) clearTimeout(timeoutId);
+      // Clear the timeout if component unmounts before initialization
+      if (initTimeout) clearTimeout(initTimeout);
       
       // 🧹 IMPORTANT: Explicitly kill the timeline and tween
       if (mobileTween) mobileTween.kill();
