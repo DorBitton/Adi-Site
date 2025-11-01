@@ -407,10 +407,10 @@ const Transition = () => {
             className="w-full h-full object-contain"
           />
         </div>
-        <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#9E8E74] mb-4">
+        <h3 className="text-2xl sm:text-3xl md:text-4xl font-lato-regular font-bold text-[#9E8E74] mb-4">
           Design process
         </h3>
-        <p className="text-lg sm:text-xl md:text-2xl text-gray-600 leading-relaxed max-w-lg mx-auto">
+        <p className="text-lg sm:text-xl md:text-2xl text-gray-600 font-lato-light leading-relaxed max-w-lg mx-auto">
           research, ideation, and refinement, focused on user needs and context.
         </p>
       </div>
@@ -422,10 +422,10 @@ const Transition = () => {
             className="w-full h-full object-contain"
           />
         </div>
-        <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#9E8E74] mb-4">
+        <h3 className="text-2xl sm:text-3xl md:text-4xl font-lato-regular font-bold text-[#9E8E74] mb-4">
           Work in multi-disciplinary teams
         </h3>
-        <p className="text-lg sm:text-xl md:text-2xl text-gray-600 leading-relaxed max-w-lg mx-auto">
+        <p className="text-lg sm:text-xl md:text-2xl text-gray-600 font-lato-light leading-relaxed max-w-lg mx-auto">
           Teamwork across diverse expertise. Collaboration between designers, engineers, and other professionals.
         </p>
       </div>
@@ -437,10 +437,10 @@ const Transition = () => {
             className="w-full h-full object-contain"
           />
         </div>
-        <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#9E8E74] mb-4">
+        <h3 className="text-2xl sm:text-3xl md:text-4xl font-lato-regular font-bold text-[#9E8E74] mb-4">
           Deal with clients and stakeholders
         </h3>
-        <p className="text-lg sm:text-xl md:text-2xl text-gray-600 leading-relaxed max-w-lg mx-auto">
+        <p className="text-lg sm:text-xl md:text-2xl text-gray-600 font-lato-light leading-relaxed max-w-lg mx-auto">
           Clear communication and feedback integration. Translating goals and constraints into effective solutions.
         </p>
       </div>
