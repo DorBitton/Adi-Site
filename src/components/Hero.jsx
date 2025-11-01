@@ -260,7 +260,7 @@ const Transition = () => {
           paused: true,
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: 'top 70%',
+            start: 'top 40%',
             end: 'bottom 30%',
             toggleActions: 'play none none reverse',
             scroller: '#smooth-wrapper'
@@ -484,12 +484,12 @@ const Transition = () => {
               right: '22vw'
             }}
           >
-            <div style={{ marginBottom: '-2.2vw' }}>
+            <div style={{ marginBottom: '-1.9vw' }}>
               <h2 className="font-extrabold text-[#F7EFE2] font-lato" style={{ fontSize: '2.8vw' }}>
                 UX Designer
               </h2>
             </div>
-            <div className="text-center" style={{ marginLeft: '10.4vw' }}>
+            <div className="text-center" style={{ marginLeft: '11.2vw' }}>
               <h2 className="font-extrabold text-[#9E8E74] font-lato" style={{ fontSize: '2.8vw' }}>
                 Architect
               </h2>
