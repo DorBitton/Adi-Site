@@ -183,7 +183,8 @@ const Projects = () => {
           style={{ 
             padding: '2vw',
             width: '93vw',
-            maxWidth: 'min(93vw, 2800px)'
+            maxWidth: 'min(93vw, 2800px)',
+            height: '100vh'
           }}
         >
           {projects.map((project, index) => (

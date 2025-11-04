@@ -393,7 +393,7 @@ const Transition = () => {
             className="transition-titles absolute opacity-0"
             style={{ 
               top: '-4vw',
-              right: '35vw'
+              right: '36vw'
             }}
           >
             <div style={{ marginBottom: '-2.1vw' }}>
@@ -401,7 +401,7 @@ const Transition = () => {
                 UX Designer
               </h2>
             </div>
-            <div className="text-center" style={{ marginTop: '-2.4vw', marginLeft: '12.7vw' }}>
+            <div className="text-center" style={{ marginTop: '-2.4vw', marginLeft: '12.1vw' }}>
               <h2 className="text-[#93472D] font-lato-bold " style={{ fontSize: '3.3vw' }}>
                 Architect
               </h2>
