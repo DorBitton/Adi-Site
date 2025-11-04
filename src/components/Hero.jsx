@@ -128,7 +128,7 @@ const Hero = () => {
       <section 
         ref={heroRef}
         id="hero" 
-        className="relative z-0 min-h-screen bg-[#9E8E74] flex flex-col items-center justify-center px-4 sm:px-6 py-16 sm:py-24"
+        className="relative z-0 min-h-screen bg-[#93472D] flex flex-col items-center justify-center px-4 sm:px-6 py-16 sm:py-24"
       >
         <div ref={contentRef}>
         <div className="max-w-6xl mx-auto w-full text-center mb-6 sm:mb-8">
@@ -251,8 +251,8 @@ const Hero = () => {
           </h1>
         </div>
         
-        <div className="max-w-4xl mx-auto w-full text-center px-4">
-          <p className={`text-[#F7EFE2] text-base sm:text-lg md:text-xl lg:text-2xl leading-relaxed transition-all duration-1000 ${
+        <div className="max-w-4xl mx-auto w-full text-center px-4 ">
+          <p className={`text-[#F7EFE2] font-lato-light text-base sm:text-lg md:text-xl lg:text-2xl leading-relaxed transition-all duration-1000 ${
             showSubtext ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}>
             a combination that shaped how I understand space, structure, and the way people interact with their environment.
@@ -366,12 +366,19 @@ const Transition = () => {
   }, [])
 
   const SkillCard = ({ avatar, header, text }) => (
-    <div className="flex-shrink-0 w-52 bg-white rounded-xl shadow-lg p-5 mx-3 hover:shadow-2xl transition-shadow duration-300">
-      <div className="flex items-center mb-3">
-        <div className="text-3xl mr-3">{avatar}</div>
-        <h3 className="text-lg font-bold text-[#9E8E74] font-lato">{header}</h3>
+    <div className="flex-shrink-0 w-64 bg-white rounded-xl shadow-lg p-6 mx-4 hover:shadow-2xl transition-shadow duration-300">
+      {/* Avatar/Image on top */}
+      <div className="flex justify-center mb-4">
+        <div className="text-5xl">{avatar}</div>
       </div>
-      <p className="text-sm text-gray-600 font-lato-light leading-relaxed">{text}</p>
+      
+      
+      {/* Header */}
+      <h3 className="text-lg font-bold text-[#9E8E74] font-lato text-center mb-4">{header}</h3>
+      
+      
+      {/* Description text */}
+      <p className="text-sm text-gray-600 font-lato-light leading-relaxed text-center">{text}</p>
     </div>
   )
 
@@ -379,7 +386,7 @@ const Transition = () => {
     <section 
       ref={sectionRef}
       id="Transition" 
-      className="relative z-10 min-h-screen bg-[#F7EFE2] py-20"
+      className="relative z-10 bg-[#F7EFE2] pt-40 pb-50"
     >
       {/* Centered Titles */}
       <div 
@@ -390,19 +397,19 @@ const Transition = () => {
             }}
           >
             <div style={{ marginBottom: '-2.1vw' }}>
-              <h2 className="text-[#F7EFE2] font-lato-bold font-bold" style={{ fontSize: '3.3vw' }}>
+              <h2 className="text-[#F7EFE2] font-lato-bold " style={{ fontSize: '3.3vw' }}>
                 UX Designer
               </h2>
             </div>
             <div className="text-center" style={{ marginTop: '-2.4vw', marginLeft: '12.7vw' }}>
-              <h2 className="text-[#9E8E74] font-lato-bold font-bold" style={{ fontSize: '3.3vw' }}>
+              <h2 className="text-[#93472D] font-lato-bold " style={{ fontSize: '3.3vw' }}>
                 Architect
               </h2>
             </div>
           </div>
 
       {/* Marquee Cards Container */}
-      <div className="transition-marquee opacity-0 space-y-8">
+      <div className="transition-marquee opacity-0 space-y-20">
         {/* Top Row - Scrolling Left */}
         <div className="relative overflow-hidden">
           <div ref={topRowRef} className="flex marquee-top">

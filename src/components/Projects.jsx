@@ -125,7 +125,7 @@ const Projects = () => {
       {/* Mobile Layout */}
       <section 
         ref={sectionRef}
-        className="pt-16 sm:pt-20 md:pt-24 pb-12 sm:pb-16 md:pb-20 lg:hidden flex justify-center items-center px-4 sm:px-6"
+        className="pt-0 pb-12 sm:pb-16 md:pb-20 lg:hidden flex justify-center items-center px-4 sm:px-6"
         style={{ transform: 'translateZ(0)', willChange: 'opacity, transform' }}
       >
         <div className="bg-[#93472D] shadow-2xl p-6 sm:p-8 md:p-12 w-full max-w-4xl rounded-lg box-border">
