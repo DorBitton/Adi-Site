@@ -15,7 +15,7 @@ const Projects = () => {
       id: 1,
       title: 'Cinema Application',
       description: 'A web app for visualizing personalized Spotify data. View your top artists, top tracks, recently played tracks, and detailed audio information about each track. Create and save new playlists of recommended tracks based on your existing playlists and more.',
-      image: '/images/projects/cinema.png'
+      video: '/videos/1.webm'
     }
   ]
 
@@ -72,15 +72,18 @@ const Projects = () => {
       const smoother = ScrollSmoother.get();
       
       if (activeSection && smoother) {
+        // Calculate offset for header (80px on desktop, 64px on mobile)
+        const headerOffset = window.innerWidth >= 1024 ? 80 : 64;
+        
         snapTrigger = ScrollTrigger.create({
           trigger: activeSection,
-          start: 'top 60%',
-          end: 'top 35%',
+          start: 'top 65%',
+          end: 'top 100%',
           scroller: '#smooth-wrapper',
           onEnter: () => {
             if (!isSnapping) {
               isSnapping = true;
-              smoother.scrollTo(activeSection, true, 'top top');
+              smoother.scrollTo(activeSection, true, `top ${headerOffset}px`);
               setTimeout(() => { isSnapping = false; }, 1200);
             }
           }
@@ -147,18 +150,21 @@ const Projects = () => {
                 </p>
               </div>
 
-              {/* Project Image */}
+              {/* Project Video */}
               <div className="relative flex justify-center items-center">
                 <div 
-                  className="w-full rounded-2xl overflow-hidden cursor-pointer"
+                  className="w-1/2 rounded-2xl overflow-hidden cursor-pointer"
                   onClick={() => window.open(`/project/${project.id}`, '_blank')}
                   onMouseEnter={handleMouseEnter}
                   onMouseLeave={handleMouseLeave}
                 >
-                  <img 
-                    src={project.image} 
-                    alt={project.title} 
+                  <video 
+                    src={project.video} 
                     className="w-full h-auto object-contain"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
                   />
                 </div>
               </div>
@@ -173,47 +179,49 @@ const Projects = () => {
         className="hidden lg:flex justify-center items-center w-full"
         style={{ 
           paddingTop: '0vw', 
-          paddingBottom: '8vw',
+          paddingBottom: '6.8vw',
           transform: 'translateZ(0)',
           willChange: 'opacity, transform'
         }}
       >
         <div 
-          className="bg-[#93472D] box-border"
+          className="bg-[#9E8E74] box-border"
           style={{ 
-            padding: '2vw',
-            width: '93vw',
-            maxWidth: 'min(93vw, 2800px)',
-            height: '100vh'
+            padding: '1.7vw',
+            width: '90vw',
+            maxWidth: 'min(90vw, 2400px)',
+            height: '85vh'
           }}
         >
           {projects.map((project, index) => (
             <div 
               key={project.id}
               className={`grid grid-cols-1 lg:grid-cols-2 items-center h-full box-border ${
-                index !== projects.length - 1 ? 'mb-8' : ''
+                index !== projects.length - 1 ? 'mb-6' : ''
               }`}
-              style={{ gap: '2vw' }}
+              style={{ gap: '1.7vw' }}
             >
               {/* Project Info */}
               <div 
                 className={`box-border ${index % 2 === 1 ? 'lg:order-2' : ''}`}
-                style={{ padding: '2vw' }}
+                style={{ padding: '1.5vw' }}
               >
                 <div 
-                  className="font-medium mb-4 text-white" 
+                  className="font-medium text-white" 
                   style={{
                     fontFamily: 'Lato, sans-serif',
-                    fontSize: '1.1vw'
+                    fontSize: '0.95vw',
+                    marginBottom: '1.2vh'
                   }}
                 >
                   Featured Project
                 </div>
                 <h2 
-                  className="font-bold mb-8 text-white" 
+                  className="font-bold text-white" 
                   style={{
                     fontFamily: 'Casta, sans-serif',
-                    fontSize: '3.5vw'
+                    fontSize: '3vw',
+                    marginBottom: '2.5vh'
                   }}
                 >
                   {project.title}
@@ -222,28 +230,32 @@ const Projects = () => {
                   className="leading-relaxed text-white" 
                   style={{
                     fontFamily: 'Lato, sans-serif',
-                    fontSize: '1.2vw',
-                    lineHeight: '1.6'
+                    fontSize: '1vw',
+                    lineHeight: '1.65'
                   }}
                 >
                   {project.description}
                 </p>
               </div>
 
-              {/* Project Image */}
+              {/* Project Video */}
               <div className={`relative h-full flex justify-center items-center box-border ${
                 index % 2 === 1 ? 'lg:order-1' : ''
               }`}>
                 <div 
-                  className="w-full h-full rounded-2xl overflow-hidden cursor-pointer box-border"
+                  className="rounded-xl overflow-hidden cursor-pointer box-border"
+                  style={{ width: '50%', height: '50%' }}
                   onClick={() => window.open(`/project/${project.id}`, '_blank')}
                   onMouseEnter={handleMouseEnter}
                   onMouseLeave={handleMouseLeave}
                 >
-                  <img 
-                    src={project.image} 
-                    alt={project.title} 
-                    className="w-full h-full object-contain max-w-full"
+                  <video 
+                    src={project.video} 
+                    className="w-full h-full object-contain"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
                   />
                 </div>
               </div>

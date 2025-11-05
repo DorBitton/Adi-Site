@@ -1,133 +1,171 @@
-import { useEffect, useRef } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import React, { useEffect, useRef, useState } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollTrigger)
+gsap.registerPlugin(ScrollTrigger);
 
 const SmallProjects = () => {
-  const containerRef = useRef(null)
+  const sliderRef = useRef(null);
+  const imagesContainerRef = useRef(null);
+  const progressRef = useRef(null);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const currentSlideRef = useRef(0); // Track current slide without closure issues
 
+  // Your project data
   const projects = [
     {
-      id: 1,
-      title: 'Small Project One',
-      description: 'Description for the first small project. This is a brief overview of what this project is about.',
-      image: '/images/projects/cinema.png',
-      imagePosition: 'left'
+      title: 'Project One',
+      image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1200',
+      description: 'Web Development'
     },
     {
-      id: 2,
-      title: 'Small Project Two',
-      description: 'Description for the second small project. This is a brief overview of what this project is about.',
-      image: '/images/projects/cinema.png',
-      imagePosition: 'right'
+      title: 'Project Two',
+      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200',
+      description: 'UI/UX Design'
     },
     {
-      id: 3,
-      title: 'Small Project Three',
-      description: 'Description for the third small project. This is a brief overview of what this project is about.',
-      image: '/images/projects/cinema.png',
-      imagePosition: 'left'
+      title: 'Project Three',
+      image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1200',
+      description: 'Brand Identity'
     }
-  ]
+  ];
 
   useEffect(() => {
-    const initTimeout = setTimeout(() => {
-      const boxes = gsap.utils.toArray('.box-wrapper')
-      
-      boxes.forEach((box, index) => {
-        const boxInner = box.querySelector('.box')
-        
-        // Set initial state
-        gsap.set(boxInner, { opacity: 0, y: 100 })
-        
-        // Animate in with opacity and Y movement
-        gsap.to(boxInner, {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: box,
-            start: 'top 80%',
-            end: 'top 50%',
-            scrub: 1,
-            scroller: '#smooth-wrapper'
-          }
-        })
-        
-        // Pin each box when it reaches the top
-        ScrollTrigger.create({
-          trigger: box,
-          start: 'top top',
-          end: 'bottom top',
-          pin: boxInner,
-          pinSpacing: false,
-          scroller: '#smooth-wrapper'
-        })
-      })
+    const slider = sliderRef.current;
+    const imagesContainer = imagesContainerRef.current;
+    const progressBar = progressRef.current;
 
-      ScrollTrigger.refresh()
-    }, 500)
+    // Initialize with first image
+    animateNewSlide(0, imagesContainer);
 
-    return () => {
-      clearTimeout(initTimeout)
-      ScrollTrigger.getAll().forEach(trigger => {
-        if (trigger.vars.trigger?.classList?.contains('box-wrapper') || 
-            trigger.pin?.classList?.contains('box')) {
-          trigger.kill()
+    // Calculate total scroll distance
+    const pinDistance = window.innerHeight * projects.length;
+
+    // Create ScrollTrigger
+    ScrollTrigger.create({
+      trigger: slider,
+      start: 'top top',
+      end: `+=${pinDistance}`,
+      pin: true,
+      scrub: true,
+      onUpdate: (self) => {
+        // Animate progress bar
+        gsap.to(progressBar, {
+          scaleY: self.progress,
+          duration: 0.1,
+          ease: 'none'
+        });
+
+        // Calculate current slide
+        const currentIndex = Math.floor(self.progress * projects.length);
+        const boundedIndex = Math.min(currentIndex, projects.length - 1);
+
+        // Update slide if changed (use ref to avoid stale closure)
+        if (boundedIndex !== currentSlideRef.current && boundedIndex >= 0) {
+          currentSlideRef.current = boundedIndex;
+          setActiveSlide(boundedIndex);
+          animateNewSlide(boundedIndex, imagesContainer);
         }
-      })
+      }
+    });
+
+    // Cleanup
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
+  }, []);
+
+  // Animate new slide image
+  const animateNewSlide = (index, container) => {
+    const newImage = document.createElement('img');
+    newImage.src = projects[index].image;
+    newImage.alt = projects[index].title;
+    newImage.className = 'absolute inset-0 w-full h-full object-cover';
+
+    // Set initial state
+    gsap.set(newImage, {
+      opacity: 0,
+      scale: 1.1
+    });
+
+    container.appendChild(newImage);
+
+    // Animate in
+    gsap.to(newImage, {
+      opacity: 1,
+      scale: 1,
+      duration: 1.2,
+      ease: 'power2.out'
+    });
+
+    // Cleanup old images
+    const images = container.querySelectorAll('img');
+    if (images.length > 3) {
+      images[0].remove();
     }
-  }, [])
+  };
 
   return (
-    <section ref={containerRef} id="small-projects" className="wrapper">
-      <div className="boxes">
-        {projects.map((project, index) => (
-          <div key={project.id} className="box-wrapper" style={{ height: '100vh' }}>
-            <div 
-              className="box w-full bg-[#93472D] flex items-center"
-              style={{
-                height: '30vh',
-                minHeight: '300px',
-                width: '100%'
-              }}
-            >
-              <div className="w-full max-w-7xl mx-auto px-6 lg:px-12">
-                <div className={`grid grid-cols-1 lg:grid-cols-2 gap-8 items-center ${
-                  project.imagePosition === 'right' ? 'lg:grid-flow-dense' : ''
-                }`}>
-                  {/* Image */}
-                  <div className={`${project.imagePosition === 'right' ? 'lg:col-start-2' : ''}`}>
-                    <div className="rounded-lg overflow-hidden shadow-xl">
-                      <img 
-                        src={project.image} 
-                        alt={project.title}
-                        className="w-full h-full object-cover"
-                        style={{ maxHeight: '20vh' }}
-                      />
-                    </div>
-                  </div>
+    <div className="w-full">
+      {/* Slider Section */}
+      <section ref={sliderRef} className="relative h-screen overflow-hidden">
+        {/* Background Images */}
+        <div ref={imagesContainerRef} className="absolute inset-0">
+          {/* Dark overlay */}
+          <div className="absolute inset-0 bg-black/40 z-10" />
+        </div>
 
-                  {/* Text */}
-                  <div className={`${project.imagePosition === 'right' ? 'lg:col-start-1 lg:row-start-1' : ''}`}>
-                    <h3 className="text-3xl lg:text-4xl font-bold text-[#F7EFE2] mb-4 font-lato-bold">
-                      {project.title}
-                    </h3>
-                    <p className="text-lg text-[#F7EFE2] font-lato-light leading-relaxed">
-                      {project.description}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
+        {/* Project Title */}
+        <div className="absolute inset-0 flex items-center justify-start z-20 px-12 md:px-24">
+          <div className="max-w-2xl">
+            <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold uppercase text-white leading-tight">
+              {projects[activeSlide].title}
+            </h2>
+            <p className="text-xl md:text-2xl text-gray-300 mt-4 font-mono uppercase tracking-wider">
+              {projects[activeSlide].description}
+            </p>
           </div>
-        ))}
-      </div>
-    </section>
-  )
-}
+        </div>
 
-export default SmallProjects
+        {/* Side Indicator */}
+        <div className="absolute right-8 md:right-12 top-1/2 -translate-y-1/2 flex items-center gap-6 z-20">
+          {/* Slide Numbers */}
+          <div className="flex flex-col gap-6">
+            {projects.map((_, index) => (
+              <div key={index} className="flex items-center gap-3">
+                {/* Marker Line */}
+                <div
+                  className="h-[2px] bg-white origin-left transition-all duration-300"
+                  style={{
+                    width: activeSlide === index ? '40px' : '0px',
+                    opacity: activeSlide === index ? 1 : 0.3
+                  }}
+                />
+                {/* Index Number */}
+                <span
+                  className="text-white font-mono text-sm transition-opacity duration-300"
+                  style={{
+                    opacity: activeSlide === index ? 1 : 0.3
+                  }}
+                >
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+              </div>
+            ))}
+          </div>
 
+          {/* Progress Bar */}
+          <div className="relative w-[2px] h-48 bg-white/30">
+            <div
+              ref={progressRef}
+              className="absolute top-0 left-0 w-full h-full bg-white origin-top"
+              style={{ scaleY: 0 }}
+            />
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+export default SmallProjects;

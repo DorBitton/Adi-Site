@@ -41,6 +41,7 @@ const App = () => {
             <Hero />
             <Transition />
             <Projects />
+            <SmallProjects />
           </main>
         </div>
       </div>
