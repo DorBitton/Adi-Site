@@ -3,37 +3,76 @@
 /* Casta Font */
 @font-face {
   font-family: 'Casta';
-  src:
-       url('/fonts/Casta-Regular.otf') format('opentype');
+  src: url('/fonts/Casta-Regular.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
-/* Lato Font (if needed) */
+/* Lato Fonts */
 @font-face {
   font-family: 'Lato-light';
-  src: 
-       url('/fonts/Lato-Light.ttf') format('truetype');
-  font-weight: normal;
+  src: url('/fonts/Lato-Light.ttf') format('truetype');
+  font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-    font-family: 'Lato-regular';
-    src: 
-         url('/fonts/Lato-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-  }
+  font-family: 'Lato-regular';
+  src: url('/fonts/Lato-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
-  @font-face {
-    font-family: 'Lato-bold';
-    src: 
-         url('/fonts/Lato-Bold.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-  }
+@font-face {
+  font-family: 'Lato-bold';
+  src: url('/fonts/Lato-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* TAILWIND V4 THEME - Black background with pink accents */
+@theme {
+  /* Fonts */
+  --font-family-casta: 'Casta', serif;
+  --font-family-lato: 'Lato-regular', sans-serif;
+  --font-family-lato-light: 'Lato-light', sans-serif;
+  --font-family-lato-bold: 'Lato-bold', sans-serif;
+
+  /* Main Colors - Black background, white text, pink highlights */
+  --color-background: oklch(0% 0 0);                      /* pure black */
+  --color-foreground: oklch(100% 0 0);                    /* white text */
+  
+  --color-card: oklch(15% 0 0);                           /* dark gray cards */
+  --color-card-foreground: oklch(100% 0 0);               /* white text on cards */
+  
+  --color-primary: oklch(59.75% 0.207 5.69);              /* pink/red for highlights */
+  --color-primary-foreground: oklch(100% 0 0);            /* white text on pink */
+  
+  --color-secondary: oklch(20% 0 0);                      /* dark gray */
+  --color-secondary-foreground: oklch(100% 0 0);          /* white text */
+  
+  --color-muted: oklch(25% 0 0);                          /* muted dark gray */
+  --color-muted-foreground: oklch(70% 0 0);               /* light gray text */
+  
+  --color-accent: oklch(59.75% 0.207 5.69);               /* pink/red accent */
+  --color-accent-foreground: oklch(100% 0 0);             /* white on accent */
+  
+  --color-destructive: oklch(67.35% 0.225 27.32);
+  --color-destructive-foreground: oklch(100% 0 0);
+  
+  --color-border: oklch(30% 0 0);                         /* dark borders */
+  --color-input: oklch(25% 0 0);                          /* dark inputs */
+  --color-ring: oklch(59.75% 0.207 5.69);                 /* pink ring */
+  
+  --color-chart-1: oklch(59.75% 0.207 5.69);              /* pink for charts */
+  --color-chart-2: oklch(66% 0.14 30);
+  --color-chart-3: oklch(54.11% 0.085 192.63);
+  --color-chart-4: oklch(78.78% 0.136 89.87);
+  --color-chart-5: oklch(76.07% 0.156 52.37);
+  
+  --radius: 0.5rem;
+}

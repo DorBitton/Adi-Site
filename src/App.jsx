@@ -25,6 +25,7 @@ const App = () => {
       id: 'smooth-scroller' // Add ID so we can reference it from Header
     })
     
+    
     // Ensure ScrollTriggers work properly with ScrollSmoother
     ScrollTrigger.refresh()
     
@@ -37,7 +38,7 @@ const App = () => {
       <Header />
       <div id="smooth-wrapper">
         <div id="smooth-content">
-          <main className="relative min-h-screen w-screen overflow-x-hidden bg-[#F7EFE2]">
+          <main className="relative min-h-screen w-screen overflow-x-hidden bg-background">
             <Hero />
             <Transition />
             <Projects />

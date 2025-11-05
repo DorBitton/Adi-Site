@@ -113,7 +113,7 @@ const Header = () => {
                 className={`hidden lg:block fixed top-0 left-0 right-0 z-50 ${transitionClasses}`}
                 style={{ position: 'fixed' }}
             >
-                <div className="bg-[#F7EFE2]/70 backdrop-blur-sm border-b border-neutral-200/50">
+                <div className="backdrop-blur-sm border-b border-border/50 bg-card/70">
                     <div className="w-full px-12 lg:px-16 xl:px-20">
                         <div className="flex items-center justify-between h-20 gap-8">
                             {/* Logo - Left */}
@@ -121,8 +121,7 @@ const Header = () => {
                                 <a 
                                     href="#hero" 
                                     onClick={(e) => handleNavClick(e, '#hero')}
-                                    className="text-2xl font-bold text-black hover:text-neutral-700 transition-colors"
-                                    style={{ fontFamily: 'Casta, serif' }}
+                                    className="text-2xl font-bold transition-colors font-casta text-foreground"
                                 >
                                     Your Name
                                 </a>
@@ -138,16 +137,13 @@ const Header = () => {
                                                 <a 
                                                     href={link.href}
                                                     onClick={(e) => handleNavClick(e, link.href)}
-                                                    className={`text-base font-medium transition-all duration-200 relative
-                                                        ${isActive 
-                                                            ? 'text-black' 
-                                                            : 'text-neutral-600 hover:text-black'
-                                                        }
-                                                    `}
+                                                    className={`text-base font-medium transition-all duration-200 relative ${
+                                                        isActive ? 'text-foreground' : 'text-muted-foreground'
+                                                    }`}
                                                 >
                                                     {link.label}
                                                     {isActive && (
-                                                        <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-black"></span>
+                                                        <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-foreground"></span>
                                                     )}
                                                 </a>
                                             </li>
@@ -162,9 +158,7 @@ const Header = () => {
                                 <a 
                                     href="#contact"
                                     onClick={(e) => handleNavClick(e, '#contact')}
-                                    className="px-6 py-2.5 bg-black text-white rounded-full font-medium 
-                                        hover:bg-neutral-800 transition-all duration-200 
-                                        shadow-sm hover:shadow-md"
+                                    className="px-6 py-2.5 rounded-full font-medium transition-all duration-200 shadow-sm hover:shadow-md bg-primary text-primary-foreground"
                                 >
                                     Contact
                                 </a>
@@ -174,9 +168,7 @@ const Header = () => {
                                     href="https://linkedin.com/in/yourprofile" 
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="w-10 h-10 flex items-center justify-center rounded-full 
-                                        border-2 border-black text-black hover:bg-black hover:text-white 
-                                        transition-all duration-200"
+                                    className="w-10 h-10 flex items-center justify-center rounded-full border-2 border-foreground text-foreground transition-all duration-200"
                                     aria-label="LinkedIn Profile"
                                 >
                                     <svg 
@@ -198,14 +190,13 @@ const Header = () => {
                 className={`lg:hidden fixed top-0 left-0 right-0 z-50 ${transitionClasses}`}
                 style={{ position: 'fixed' }}
             >
-                <div className="bg-[#F7EFE2]/70 backdrop-blur-sm border-b border-neutral-200/50">
+                <div className="backdrop-blur-sm border-b border-border/50 bg-card/70">
                     <div className="px-6 py-4 flex items-center justify-between">
                         {/* Logo */}
                         <a 
                             href="#hero" 
                             onClick={(e) => handleNavClick(e, '#hero')}
-                            className="text-xl font-bold text-black"
-                            style={{ fontFamily: 'Casta, serif' }}
+                            className="text-xl font-bold font-casta text-foreground"
                         >
                             Your Name
                         </a>
@@ -213,7 +204,7 @@ const Header = () => {
                         {/* Mobile Menu Button */}
                         <button 
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                            className="p-2 text-black"
+                            className="p-2 text-foreground"
                             aria-label="Toggle menu"
                         >
                             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -231,7 +222,7 @@ const Header = () => {
                         className={`overflow-hidden transition-all duration-300 ease-in-out
                             ${mobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
                     >
-                        <nav className="px-6 py-4 border-t border-neutral-200/50 bg-[#F7EFE2]/90">
+                        <nav className="px-6 py-4 border-t border-border/50 bg-card/90">
                             <ul className="space-y-3">
                                 {navLinks.map((link) => {
                                     const isActive = activeSection === link.section
@@ -240,11 +231,11 @@ const Header = () => {
                                             <a
                                                 href={link.href}
                                                 onClick={(e) => handleNavClick(e, link.href)}
-                                                className={`block px-4 py-3 rounded-lg transition-colors font-medium
-                                                    ${isActive 
-                                                        ? 'bg-neutral-900 text-white' 
-                                                        : 'text-neutral-700 hover:bg-neutral-100'
-                                                    }`}
+                                                className={`block px-4 py-3 rounded-lg transition-colors font-medium ${
+                                                    isActive 
+                                                        ? 'bg-primary text-primary-foreground' 
+                                                        : 'text-foreground'
+                                                }`}
                                             >
                                                 {link.label}
                                             </a>
@@ -257,8 +248,7 @@ const Header = () => {
                                     <a
                                         href="#contact"
                                         onClick={(e) => handleNavClick(e, '#contact')}
-                                        className="block px-4 py-3 rounded-lg bg-black text-white text-center font-medium
-                                            hover:bg-neutral-800 transition-colors"
+                                        className="block px-4 py-3 rounded-lg text-center font-medium transition-colors bg-primary text-primary-foreground"
                                     >
                                         Contact
                                     </a>
@@ -268,9 +258,7 @@ const Header = () => {
                                         href="https://linkedin.com/in/yourprofile"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg 
-                                            border-2 border-black text-black font-medium
-                                            hover:bg-black hover:text-white transition-colors"
+                                        className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg border-2 border-foreground text-foreground font-medium transition-colors"
                                     >
                                         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                             <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>

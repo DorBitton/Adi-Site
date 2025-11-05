@@ -124,14 +124,14 @@ const Projects = () => {
   }
 
   return (
-    <div id="projects" className="w-full overflow-x-hidden">
+    <div id="projects" className="w-full overflow-x-hidden bg-card">
       {/* Mobile Layout */}
       <section 
         ref={sectionRef}
         className="pt-0 pb-12 sm:pb-16 md:pb-20 lg:hidden flex justify-center items-center px-4 sm:px-6"
         style={{ transform: 'translateZ(0)', willChange: 'opacity, transform' }}
       >
-        <div className="bg-[#93472D] shadow-2xl p-6 sm:p-8 md:p-12 w-full max-w-4xl rounded-lg box-border">
+        <div className="shadow-2xl p-6 sm:p-8 md:p-12 w-full max-w-4xl rounded-lg box-border bg-primary">
           {projects.map((project) => (
             <div 
               key={project.id}
@@ -139,13 +139,13 @@ const Projects = () => {
             >
               {/* Project Info */}
               <div className="p-4 sm:p-6">
-                <div className="text-base sm:text-lg font-medium mb-3 sm:mb-4 text-white" style={{fontFamily: 'Lato, sans-serif'}}>
+                <div className="text-base sm:text-lg font-medium mb-3 sm:mb-4 font-lato">
                   Featured Project
                 </div>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 text-white" style={{fontFamily: 'Casta, sans-serif'}}>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 font-casta">
                   {project.title}
                 </h2>
-                <p className="text-base sm:text-lg leading-relaxed text-white" style={{fontFamily: 'Lato, sans-serif'}}>
+                <p className="text-base sm:text-lg leading-relaxed ">
                   {project.description}
                 </p>
               </div>
@@ -185,7 +185,7 @@ const Projects = () => {
         }}
       >
         <div 
-          className="bg-[#9E8E74] box-border"
+          className="box-border bg-secondary"
           style={{ 
             padding: '1.7vw',
             width: '90vw',
@@ -207,9 +207,8 @@ const Projects = () => {
                 style={{ padding: '1.5vw' }}
               >
                 <div 
-                  className="font-medium text-white" 
+                  className="font-medium font-lato text-secondary-foreground" 
                   style={{
-                    fontFamily: 'Lato, sans-serif',
                     fontSize: '0.95vw',
                     marginBottom: '1.2vh'
                   }}
@@ -217,9 +216,8 @@ const Projects = () => {
                   Featured Project
                 </div>
                 <h2 
-                  className="font-bold text-white" 
+                  className="font-bold font-casta text-primary" 
                   style={{
-                    fontFamily: 'Casta, sans-serif',
                     fontSize: '3vw',
                     marginBottom: '2.5vh'
                   }}
@@ -227,9 +225,8 @@ const Projects = () => {
                   {project.title}
                 </h2>
                 <p 
-                  className="leading-relaxed text-white" 
+                  className="leading-relaxed font-lato text-secondary-foreground" 
                   style={{
-                    fontFamily: 'Lato, sans-serif',
                     fontSize: '1vw',
                     lineHeight: '1.65'
                   }}

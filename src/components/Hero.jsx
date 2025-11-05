@@ -128,7 +128,7 @@ const Hero = () => {
       <section 
         ref={heroRef}
         id="hero" 
-        className="relative z-0 min-h-screen bg-[#93472D] flex flex-col items-center justify-center px-4 sm:px-6 py-16 sm:py-24"
+        className="relative z-0 min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 py-16 sm:py-24 bg-black"
       >
         <div ref={contentRef}>
         <div className="max-w-6xl mx-auto w-full text-center mb-6 sm:mb-8">
@@ -137,7 +137,7 @@ const Hero = () => {
             style={{fontFamily: 'Casta, serif'}}
           >
             <span 
-              className={`text-black transition-all duration-300 ${
+              className={`transition-all duration-300 text-foreground ${
                 visibleWords['0-0'] ? 'opacity-100' : 'opacity-0'
               }`}
             >
@@ -145,21 +145,21 @@ const Hero = () => {
             </span>
             
             <span 
-              className={`italic text-[#F7EFE2] transition-all duration-300 ${
+              className={`italic transition-all duration-300 text-pink-500 ${
                 visibleWords['1-0'] ? 'opacity-100' : 'opacity-0'
               }`}
             >
               I'm{' '}
             </span>
             <span 
-              className={`italic text-[#F7EFE2] transition-all duration-300 ${
+              className={`italic transition-all duration-300 text-pink-500 ${
                 visibleWords['1-1'] ? 'opacity-100' : 'opacity-0'
               }`}
             >
               Adi
             </span>
             <span 
-              className={`text-black transition-all duration-300 ${
+              className={`transition-all duration-300 text-foreground ${
                 visibleWords['1-2'] ? 'opacity-100' : 'opacity-0'
               }`}
             >
@@ -168,28 +168,28 @@ const Hero = () => {
             <br />
             
             <span 
-              className={`text-black transition-all duration-300 ${
+              className={`transition-all duration-300 text-foreground ${
                 visibleWords['2-0'] ? 'opacity-100' : 'opacity-0'
               }`}
             >
               I{' '}
             </span>
             <span 
-              className={`text-black transition-all duration-300 ${
+              className={`transition-all duration-300 text-foreground ${
                 visibleWords['2-1'] ? 'opacity-100' : 'opacity-0'
               }`}
             >
               used{' '}
             </span>
             <span 
-              className={`text-black transition-all duration-300 ${
+              className={`transition-all duration-300 text-foreground ${
                 visibleWords['2-2'] ? 'opacity-100' : 'opacity-0'
               }`}
             >
               to{' '}
             </span>
             <span 
-              className={`text-black transition-all duration-300 ${
+              className={`transition-all duration-300 text-foreground ${
                 visibleWords['2-3'] ? 'opacity-100' : 'opacity-0'
               }`}
             >
@@ -198,14 +198,14 @@ const Hero = () => {
             <br />
             
             <span 
-              className={`italic text-[#F7EFE2] transition-all duration-300 ${
+              className={`italic transition-all duration-300 text-pink-500 ${
                 visibleWords['2-4'] ? 'opacity-100' : 'opacity-0'
               }`}
             >
               Buildings
             </span>
             <span 
-              className={`text-black transition-all duration-300 ${
+              className={`transition-all duration-300 text-foreground ${
                 visibleWords['2-5'] ? 'opacity-100' : 'opacity-0'
               }`}
             >
@@ -213,21 +213,21 @@ const Hero = () => {
             </span>
             
             <span 
-              className={`text-black transition-all duration-300 ${
+              className={`transition-all duration-300 text-foreground ${
                 visibleWords['3-0'] ? 'opacity-100' : 'opacity-0'
               }`}
             >
               Now{' '}
             </span>
             <span 
-              className={`text-black transition-all duration-300 ${
+              className={`transition-all duration-300 text-foreground ${
                 visibleWords['3-1'] ? 'opacity-100' : 'opacity-0'
               }`}
             >
               I{' '}
             </span>
             <span 
-              className={`text-black transition-all duration-300 ${
+              className={`transition-all duration-300 text-foreground ${
                 visibleWords['3-2'] ? 'opacity-100' : 'opacity-0'
               }`}
             >
@@ -235,14 +235,14 @@ const Hero = () => {
             </span>
             
             <span 
-              className={`italic text-[#F7EFE2] transition-all duration-300 ${
+              className={`italic transition-all duration-300 text-pink-500 ${
                 visibleWords['3-3'] ? 'opacity-100' : 'opacity-0'
               }`}
             >
               Experiences
             </span>
             <span 
-              className={`text-black transition-all duration-300 ${
+              className={`transition-all duration-300 text-foreground ${
                 visibleWords['3-4'] ? 'opacity-100' : 'opacity-0'
               }`}
             >
@@ -252,9 +252,11 @@ const Hero = () => {
         </div>
         
         <div className="max-w-4xl mx-auto w-full text-center px-4 ">
-          <p className={`text-[#F7EFE2] font-lato-light text-base sm:text-lg md:text-xl lg:text-2xl leading-relaxed transition-all duration-1000 ${
-            showSubtext ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-          }`}>
+          <p 
+            className={`font-lato-light text-base sm:text-lg md:text-xl lg:text-2xl leading-relaxed transition-all duration-1000 text-white ${
+              showSubtext ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+            }`}
+          >
             a combination that shaped how I understand space, structure, and the way people interact with their environment.
           </p>
         </div>
@@ -268,11 +270,12 @@ const Transition = () => {
   const topRowRef = useRef(null)
   const bottomRowRef = useRef(null)
   
+  
   // Sample card data - you can customize this
   const cardData = [
     { id: 1, avatar: '👨‍💻', header: 'User Research', text: 'Understanding user needs through interviews and testing' },
     { id: 2, avatar: '🎨', header: 'Visual Design', text: 'Creating beautiful and functional interfaces' },
-    { id: 3, avatar: '📐', header: 'Wireframing', text: 'Sketching layouts and user flows' },
+    { id: 3, avatar: '📝', header: 'Wireframing', text: 'Sketching layouts and user flows' },
     { id: 4, avatar: '🔍', header: 'Usability Testing', text: 'Validating designs with real users' },
     { id: 5, avatar: '💡', header: 'Ideation', text: 'Brainstorming creative solutions' },
     { id: 6, avatar: '📊', header: 'Data Analysis', text: 'Making informed design decisions' },
@@ -286,7 +289,7 @@ const Transition = () => {
     { id: 14, avatar: '🔧', header: 'Tools', text: 'Mastering design software' },
     { id: 15, avatar: '🌟', header: 'Excellence', text: 'Striving for quality in every detail' },
     { id: 16, avatar: '🎪', header: 'Experience', text: 'Crafting memorable interactions' },
-    { id: 17, avatar: '📝', header: 'Documentation', text: 'Clear design specifications' },
+    { id: 17, avatar: '📋', header: 'Documentation', text: 'Clear design specifications' },
     { id: 18, avatar: '🎓', header: 'Learning', text: 'Continuous growth and development' },
     { id: 19, avatar: '🌈', header: 'Accessibility', text: 'Design for everyone' },
     { id: 20, avatar: '⚡', header: 'Performance', text: 'Fast and efficient solutions' }
@@ -367,17 +370,23 @@ const Transition = () => {
 
 
   const SkillCard = ({ avatar, header, text }) => (
-    <div className="flex-shrink-0 w-64 bg-white/3 backdrop-blur-2xl border-2 border-[#9E8E74] shadow-lg rounded-2xl p-6 mx-4 hover:bg-white/8 hover:border-[#9E8E74]/80 hover:shadow-2xl transition-shadow transition-all duration-300">
+    <div 
+      className="flex-shrink-0 w-64 backdrop-blur-2xl border-2 border-border shadow-lg rounded-2xl p-6 mx-4 hover:shadow-2xl transition-shadow transition-all duration-300 bg-card/5"
+    >
       {/* Avatar/Image on top */}
       <div className="flex justify-center mb-4">
         <div className="text-5xl">{avatar}</div>
       </div>
       
       {/* Header */}
-      <h3 className="text-lg font-bold text-[#93472D] font-lato text-center mb-4">{header}</h3>
+      <h3 
+        className="text-lg font-bold font-lato text-center mb-4 text-primary"
+      >{header}</h3>
       
       {/* Description text */}
-      <p className="text-sm text-gray-700 font-lato-light leading-relaxed text-center">{text}</p>
+      <p 
+        className="text-sm font-lato-light leading-relaxed text-center text-muted-foreground"
+      >{text}</p>
     </div>
   )
 
@@ -385,7 +394,7 @@ const Transition = () => {
     <section 
       ref={sectionRef}
       id="Transition" 
-      className="relative z-10 bg-[#F7EFE2] pt-40 pb-50"
+      className="relative z-10 pt-40 pb-50 bg-card"
     >
       {/* Centered Titles */}
       <div 
@@ -396,12 +405,22 @@ const Transition = () => {
             }}
           >
             <div style={{ marginBottom: '-2.1vw' }}>
-              <h2 className="text-[#F7EFE2] font-lato-bold " style={{ fontSize: '3.3vw' }}>
+              <h2 
+                className="font-lato-bold text-primary" 
+                style={{ 
+                  fontSize: '3.3vw'
+                }}
+              >
                 UX Designer
               </h2>
             </div>
             <div className="text-center" style={{ marginTop: '-2.4vw', marginLeft: '12.1vw' }}>
-              <h2 className="text-[#93472D] font-lato-bold " style={{ fontSize: '3.3vw' }}>
+              <h2 
+                className="font-lato-bold text-white" 
+                style={{ 
+                  fontSize: '3.3vw'
+                }}
+              >
                 Architect
               </h2>
             </div>

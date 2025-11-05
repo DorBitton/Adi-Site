@@ -112,16 +112,20 @@ const SmallProjects = () => {
         {/* Background Images */}
         <div ref={imagesContainerRef} className="absolute inset-0">
           {/* Dark overlay */}
-          <div className="absolute inset-0 bg-black/40 z-10" />
+          <div className="absolute inset-0 z-10 bg-foreground/40" />
         </div>
 
         {/* Project Title */}
         <div className="absolute inset-0 flex items-center justify-start z-20 px-12 md:px-24">
           <div className="max-w-2xl">
-            <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold uppercase text-white leading-tight">
+            <h2 
+              className="text-4xl md:text-6xl lg:text-7xl font-bold uppercase leading-tight text-background"
+            >
               {projects[activeSlide].title}
             </h2>
-            <p className="text-xl md:text-2xl text-gray-300 mt-4 font-mono uppercase tracking-wider">
+            <p 
+              className="text-xl md:text-2xl mt-4 font-mono uppercase tracking-wider text-muted-foreground"
+            >
               {projects[activeSlide].description}
             </p>
           </div>
@@ -135,7 +139,7 @@ const SmallProjects = () => {
               <div key={index} className="flex items-center gap-3">
                 {/* Marker Line */}
                 <div
-                  className="h-[2px] bg-white origin-left transition-all duration-300"
+                  className="h-[2px] origin-left transition-all duration-300 bg-background"
                   style={{
                     width: activeSlide === index ? '40px' : '0px',
                     opacity: activeSlide === index ? 1 : 0.3
@@ -143,7 +147,7 @@ const SmallProjects = () => {
                 />
                 {/* Index Number */}
                 <span
-                  className="text-white font-mono text-sm transition-opacity duration-300"
+                  className="font-mono text-sm transition-opacity duration-300 text-background"
                   style={{
                     opacity: activeSlide === index ? 1 : 0.3
                   }}
@@ -155,11 +159,13 @@ const SmallProjects = () => {
           </div>
 
           {/* Progress Bar */}
-          <div className="relative w-[2px] h-48 bg-white/30">
+          <div className="relative w-[2px] h-48 bg-background/30">
             <div
               ref={progressRef}
-              className="absolute top-0 left-0 w-full h-full bg-white origin-top"
-              style={{ scaleY: 0 }}
+              className="absolute top-0 left-0 w-full h-full origin-top bg-chart-2"
+              style={{ 
+                scaleY: 0
+              }}
             />
           </div>
         </div>
