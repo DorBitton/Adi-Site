@@ -2,50 +2,40 @@ import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ScrollSmoother } from 'gsap/ScrollSmoother'
-import ImageSlider from './ImageSlider'
+import { ArrowUpRight } from 'lucide-react'
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother)
 
 const Projects = () => {  
   const sectionRef = useRef(null)
-  const desktopSectionRef = useRef(null)
 
   const projects = [
     {
       id: 1,
-      title: 'Cinema Application',
-      description: 'A web app for visualizing personalized Spotify data. View your top artists, top tracks, recently played tracks, and detailed audio information about each track. Create and save new playlists of recommended tracks based on your existing playlists and more.',
-      images: [
-        '/images/projects/1.png',
-        '/images/projects/2.png',
-        '/images/projects/3.png',
-        '/images/projects/4.png',
-        '/images/projects/5.png',
-        '/images/projects/6.png',
-        '/images/projects/7.png',
-        '/images/projects/8.png',
-        '/images/projects/9.png',
-        '/images/projects/10.png',
-        '/images/projects/11.png'
-      ]
+      title: 'Stadia Bluetooth',
+      company: 'Google',
+      year: '23',
+      description: 'Giving a second life to over a million controllers.',
+      image: '/images/projects/1.png',
+      link: 'https://example.com'
     }
   ]
 
   useEffect(() => {
-    let mobileTween, desktopTween, snapTrigger;
-    let isSnapping = false;
+    let tween;
     
     // Delay to ensure ScrollSmoother is ready
     const timer = setTimeout(() => {
-      // Mobile animation
       if (sectionRef.current) {
-        gsap.set(sectionRef.current, { x: 0, force3D: true })
-        mobileTween = gsap.fromTo(sectionRef.current,
+        gsap.set(sectionRef.current, { force3D: true })
+        tween = gsap.fromTo(sectionRef.current,
           {
-            opacity: 0
+            opacity: 0,
+            y: 50
           },
           {
             opacity: 1,
+            y: 0,
             duration: 1,
             ease: 'power2.out',
             scrollTrigger: {
@@ -58,179 +48,53 @@ const Projects = () => {
         )
       }
 
-      // Desktop animation
-      if (desktopSectionRef.current) {
-        gsap.set(desktopSectionRef.current, { x: 0, force3D: true })
-        desktopTween = gsap.fromTo(desktopSectionRef.current,
-          {
-            opacity: 0
-          },
-          {
-            opacity: 1,
-            duration: 1,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: desktopSectionRef.current,
-              start: 'top 70%',
-              toggleActions: 'play reverse play reverse',
-              scroller: '#smooth-wrapper'
-            }
-          }
-        )
-      }
-
-      // Scroll snap functionality for both mobile and desktop
-      const activeSection = window.innerWidth >= 1024 ? desktopSectionRef.current : sectionRef.current;
-      const smoother = ScrollSmoother.get();
-      
-      if (activeSection && smoother) {
-        // Calculate offset for header (80px on desktop, 64px on mobile)
-        const headerOffset = window.innerWidth >= 1024 ? 80 : 64;
-        
-        snapTrigger = ScrollTrigger.create({
-          trigger: activeSection,
-          start: 'top 65%',
-          end: 'top 100%',
-          scroller: '#smooth-wrapper',
-          onEnter: () => {
-            if (!isSnapping) {
-              isSnapping = true;
-              smoother.scrollTo(activeSection, true, `top ${headerOffset}px`);
-              setTimeout(() => { isSnapping = false; }, 1200);
-            }
-          }
-        })
-      }
-
-      // Refresh ScrollTrigger after setup
       ScrollTrigger.refresh()
     }, 200)
 
     return () => {
       clearTimeout(timer)
-      if (mobileTween) mobileTween.kill()
-      if (desktopTween) desktopTween.kill()
-      if (snapTrigger) snapTrigger.kill()
+      if (tween) tween.kill()
       ScrollTrigger.getAll().forEach(trigger => {
-        if (trigger.vars.trigger === sectionRef.current || trigger.vars.trigger === desktopSectionRef.current) {
+        if (trigger.vars.trigger === sectionRef.current) {
           trigger.kill()
         }
       })
     }
   }, [])
 
+  const handleProjectClick = (link) => {
+    if (link) {
+      window.open(link, '_blank')
+    }
+  }
+
   return (
-    <div id="projects" className="w-full overflow-x-hidden bg-card">
-      {/* Mobile Layout */}
+    <div id="projects" className="w-full py-20 px-6 lg:px-12 bg-card">
       <section 
         ref={sectionRef}
-        className="pt-0 pb-12 sm:pb-16 md:pb-20 lg:hidden flex justify-center items-center px-4 sm:px-6"
-        style={{ transform: 'translateZ(0)', willChange: 'opacity, transform' }}
+        className="h-auto lg:h-[85vh]"
+
       >
-        <div className="shadow-2xl p-6 sm:p-8 md:p-12 w-full max-w-4xl rounded-lg box-border bg-primary">
+        <div className="grid grid-cols-1 gap-8 h-auto lg:h-[80vh] lg:w-[70vw] mx-auto">
           {projects.map((project) => (
-            <div 
+            <div
               key={project.id}
-              className="flex flex-col gap-6 sm:gap-8"
+              onClick={() => handleProjectClick(project.link)}
+              className="group relative cursor-pointer bg-gradient-to-br from-neutral-800/30 to-neutral-900/30 rounded-[2.5rem] border border-neutral-700/40 transition-all duration-500 hover:border-neutral-600/60 p-3"
             >
-              {/* Project Info */}
-              <div className="p-4 sm:p-6">
-                <div className="text-base sm:text-lg font-medium mb-3 sm:mb-4 font-lato">
-                  Featured Project
+              {/* Inner Card */}
+              <div className="relative overflow-hidden rounded-[2rem] border border-neutral-700 bg-gradient-to-br from-[#252525] to-[#101010] p-10 lg:p-14 transition-all duration-500 hover:border-neutral-500 h-full">
+                {/* Glare effects */}
+                <div className="pointer-events-none absolute inset-0 z-0">
+                  {/* Background radial glow */}
+                  <div className="absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100 bg-[radial-gradient(circle_at_50%_0,#7fcfff33,#0000_80%),radial-gradient(circle_at_50%_0,#035,#0000)]" />
+                  {/* Top glare line */}
+                  <div className="absolute top-0 h-px w-full bg-gradient-to-r from-transparent via-white/40 to-transparent opacity-20" />
                 </div>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 font-casta">
-                  {project.title}
-                </h2>
-                <p className="text-base sm:text-lg leading-relaxed ">
-                  {project.description}
-                </p>
-              </div>
 
-              {/* Project Image Slider */}
-              <div className="relative flex justify-center items-center">
-                <div 
-                  className="w-1/2 rounded-2xl overflow-hidden"
-                  style={{ aspectRatio: '16/9' }}
-                >
-                  <ImageSlider images={project.images} />
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Desktop Layout */}
-      <section 
-        ref={desktopSectionRef}
-        className="hidden lg:flex justify-center items-center w-full"
-        style={{ 
-          paddingTop: '0vw', 
-          paddingBottom: '6.8vw',
-          transform: 'translateZ(0)',
-          willChange: 'opacity, transform'
-        }}
-      >
-        <div 
-          className="box-border bg-secondary"
-          style={{ 
-            padding: '1.7vw',
-            width: '90vw',
-            maxWidth: 'min(90vw, 2400px)',
-            height: '85vh'
-          }}
-        >
-          {projects.map((project, index) => (
-            <div 
-              key={project.id}
-              className={`grid grid-cols-1 lg:grid-cols-2 items-center h-full box-border ${
-                index !== projects.length - 1 ? 'mb-6' : ''
-              }`}
-              style={{ gap: '1.7vw' }}
-            >
-              {/* Project Info */}
-              <div 
-                className={`box-border ${index % 2 === 1 ? 'lg:order-2' : ''}`}
-                style={{ padding: '1.5vw' }}
-              >
-                <div 
-                  className="font-medium font-lato text-secondary-foreground" 
-                  style={{
-                    fontSize: '0.95vw',
-                    marginBottom: '1.2vh'
-                  }}
-                >
-                  Featured Project
-                </div>
-                <h2 
-                  className="font-bold font-casta text-primary" 
-                  style={{
-                    fontSize: '3vw',
-                    marginBottom: '2.5vh'
-                  }}
-                >
-                  {project.title}
-                </h2>
-                <p 
-                  className="leading-relaxed font-lato text-secondary-foreground" 
-                  style={{
-                    fontSize: '1vw',
-                    lineHeight: '1.65'
-                  }}
-                >
-                  {project.description}
-                </p>
-              </div>
-
-              {/* Project Image Slider */}
-              <div className={`relative h-full flex justify-center items-center box-border ${
-                index % 2 === 1 ? 'lg:order-1' : ''
-              }`}>
-                <div 
-                  className="rounded-xl overflow-hidden box-border"
-                  style={{ width: '50%', height: '50%' }}
-                >
-                  <ImageSlider images={project.images} />
+                {/* Arrow Button */}
+                <div className="absolute right-6 top-6 flex h-12 w-12 lg:h-14 lg:w-14 items-center justify-center rounded-full border border-neutral-600 bg-neutral-800/50 backdrop-blur-sm transition-all duration-500 hover:bg-neutral-700 z-20">
+                  <ArrowUpRight className="w-6 h-6 lg:w-7 lg:h-7 text-neutral-200" />
                 </div>
               </div>
             </div>
