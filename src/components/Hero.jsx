@@ -267,9 +267,6 @@ const Hero = () => {
   
 const Transition = () => {
   const sectionRef = useRef(null)
-  const topRowRef = useRef(null)
-  const bottomRowRef = useRef(null)
-  
   
   // Sample card data - you can customize this
   const cardData = [
@@ -281,7 +278,7 @@ const Transition = () => {
     { id: 6, avatar: '📊', header: 'Data Analysis', text: 'Making informed design decisions' },
     { id: 7, avatar: '🤝', header: 'Collaboration', text: 'Working with cross-functional teams' },
     { id: 8, avatar: '🎯', header: 'Strategy', text: 'Aligning design with business goals' },
-    { id: 9, avatar: '🚀', header: 'Prototyping', text: 'Building interactive mockups' },
+    { id: 9, avatar: 'gif', gifSrc: '/images/cards/Rocket.gif', header: 'Prototyping', text: 'Building interactive mockups' },
     { id: 10, avatar: '✨', header: 'Innovation', text: 'Pushing boundaries of design' },
     { id: 11, avatar: '📱', header: 'Mobile First', text: 'Designing for all screen sizes' },
     { id: 12, avatar: '🏗️', header: 'Architecture', text: 'Structuring space and experience' },
@@ -297,8 +294,6 @@ const Transition = () => {
 
   useEffect(() => {
     let tl;
-    let marqueeTop;
-    let marqueeBottom;
     let initTimeout;
     
     initTimeout = setTimeout(() => {
@@ -329,36 +324,36 @@ const Transition = () => {
         ease: 'power2.out'
       }, '-=0.5')
 
-      // Infinite marquee animations (slower speed)
-      if (topRowRef.current) {
-        const topRowWidth = topRowRef.current.scrollWidth / 2
-        marqueeTop = gsap.to('.marquee-top', {
-          x: -topRowWidth,
-          duration: 80,
-          ease: 'none',
-          repeat: -1
-        })
-      }
+      // Add CSS-based infinite scroll animation
+      // If user hasn't opted in for reduced motion, add the animation
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        const scrollers = document.querySelectorAll(".scroller");
+        
+        scrollers.forEach((scroller) => {
+          // Add data-animated="true" to enable animation
+          scroller.setAttribute("data-animated", "true");
 
-      if (bottomRowRef.current) {
-        const bottomRowWidth = bottomRowRef.current.scrollWidth / 2
-        marqueeBottom = gsap.fromTo('.marquee-bottom',
-          { x: -bottomRowWidth },
-          {
-            x: 0,
-            duration: 80,
-            ease: 'none',
-            repeat: -1
-          }
-        )
+          // Make an array from the elements within `.scroller__inner`
+          const scrollerInner = scroller.querySelector(".scroller__inner");
+          if (!scrollerInner) return;
+          
+          const scrollerContent = Array.from(scrollerInner.children);
+
+          // For each item in the array, clone it
+          // add aria-hidden to it
+          // add it into the `.scroller__inner`
+          scrollerContent.forEach((item) => {
+            const duplicatedItem = item.cloneNode(true);
+            duplicatedItem.setAttribute("aria-hidden", "true");
+            scrollerInner.appendChild(duplicatedItem);
+          });
+        });
       }
     }, 500)
 
     return () => {
       if (initTimeout) clearTimeout(initTimeout)
       if (tl) tl.kill()
-      if (marqueeTop) marqueeTop.kill()
-      if (marqueeBottom) marqueeBottom.kill()
       
       ScrollTrigger.getAll().forEach(trigger => {
         if (trigger.trigger === sectionRef.current) {
@@ -369,13 +364,27 @@ const Transition = () => {
   }, [])
 
 
-  const SkillCard = ({ avatar, header, text }) => (
+  const SkillCard = ({ avatar, gifSrc, header, text }) => (
     <div 
-      className="flex-shrink-0 w-64 backdrop-blur-2xl border-2 border-border shadow-lg rounded-2xl p-6 mx-4 hover:shadow-2xl transition-shadow transition-all duration-300 bg-card/5"
+      className="skill-card flex-shrink-0 w-64 backdrop-blur-2xl border-2 border-border shadow-lg rounded-2xl p-6 hover:shadow-2xl transition-shadow transition-all duration-300 bg-card/5"
     >
       {/* Avatar/Image on top */}
       <div className="flex justify-center mb-4">
-        <div className="text-5xl">{avatar}</div>
+        {avatar === 'gif' ? (
+          <div className="w-20 h-20 flex items-center justify-center" style={{ minHeight: '80px' }}>
+            <img 
+              src={gifSrc} 
+              alt={header}
+              style={{ 
+                width: '80px', 
+                height: '80px',
+                objectFit: 'contain'
+              }}
+            />
+          </div>
+        ) : (
+          <div className="text-5xl">{avatar}</div>
+        )}
       </div>
       
       {/* Header */}
@@ -427,31 +436,21 @@ const Transition = () => {
           </div>
 
       {/* Marquee Cards Container */}
-      <div className="transition-marquee opacity-0 space-y-20">
+      <div className="transition-marquee opacity-0 space-y-20 max-w-[1800px] mx-auto">
         {/* Top Row - Scrolling Left */}
-        <div className="relative overflow-hidden">
-          <div ref={topRowRef} className="flex marquee-top">
-            {/* First set of cards */}
+        <div className="scroller" data-direction="left" data-speed="slow">
+          <div className="scroller__inner">
             {cardData.slice(0, 10).map(card => (
-              <SkillCard key={`top-1-${card.id}`} {...card} />
-            ))}
-            {/* Duplicate set for seamless loop */}
-            {cardData.slice(0, 10).map(card => (
-              <SkillCard key={`top-2-${card.id}`} {...card} />
+              <SkillCard key={`top-${card.id}`} {...card} />
             ))}
           </div>
         </div>
 
         {/* Bottom Row - Scrolling Right */}
-        <div className="relative overflow-hidden">
-          <div ref={bottomRowRef} className="flex marquee-bottom">
-            {/* First set of cards */}
+        <div className="scroller" data-direction="right" data-speed="slow">
+          <div className="scroller__inner">
             {cardData.slice(10, 20).map(card => (
-              <SkillCard key={`bottom-1-${card.id}`} {...card} />
-            ))}
-            {/* Duplicate set for seamless loop */}
-            {cardData.slice(10, 20).map(card => (
-              <SkillCard key={`bottom-2-${card.id}`} {...card} />
+              <SkillCard key={`bottom-${card.id}`} {...card} />
             ))}
           </div>
         </div>
