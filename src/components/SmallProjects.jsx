@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
+import { Monitor } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -11,27 +12,28 @@ const SmallProjects = () => {
   const projects = [
     {
       id: 1,
-      title: 'Project One',
+      title: 'Chocolate Collection',
       description:
-        'A beautiful web application showcasing modern design principles and smooth user experiences.',
+        'This mini project explores a playful and visually rich interface for presenting different chocolate flavors. The design focuses on smooth micro-interactions and a delightful animation that enhances the sensory feel of chocolate. The goal was to create a simple yet immersive experience—where motion, color, and typography work together to evoke taste and texture in a digital space.',
       image: '/images/projects/1.png',
-      tags: ['React', 'GSAP', 'Design'],
+      tools: 'figma',
     },
     {
       id: 2,
-      title: 'Project Two',
+      title: 'Urban Movement Concept',
+      subtitle: 'Under ground station, commerce, residence.',
       description:
-        'An innovative mobile-first experience with smooth animations and intuitive interactions.',
+        'A city in motion. This project transforms everyday movement into an experience—where streets, open spaces, and the train flow together as one living system. The design celebrates rhythm, energy, and the seamless pulse of urban life.',
       image: '/images/projects/2.png',
-      tags: ['Next.js', 'TypeScript', 'UI/UX'],
+      tools: 'Rhino, Twinmotion, Photoshop, Autocad, AI',
     },
     {
       id: 3,
-      title: 'Project Three',
+      title: 'Coastal Heritage Cities',
       description:
-        'A creative portfolio piece demonstrating advanced techniques and cutting-edge design.',
+        'Inspired by the rhythm of coastal life, this project re imagines a historic seaside city where tradition meets climate-conscious design. Natural light, wind, and shade shape the experience—creating inviting public spaces that breathe with their surroundings. Drawing from the textures of local stone and the patterns of old streets, the design blends heritage with sustainability, crafting a city that feels both timeless and alive.',
       image: '/images/projects/3.png',
-      tags: ['Vue', 'Animation', 'Creative'],
+      tools: 'Rhino, Twinmotion, Photoshop, AI',
     },
   ];
 
@@ -99,53 +101,55 @@ const SmallProjects = () => {
   return (
     <section
       ref={containerRef}
-      className="relative w-full min-h-screen py-32 px-4 sm:px-6 md:px-8 bg-background"
+      className="relative w-full min-h-screen py-32 px-4 sm:px-6 md:px-8 bg-card"
     >
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-4xl md:text-6xl font-bold text-center mb-20 text-foreground">
-          Featured Work
-        </h2>
-        
+      <div className="max-w-7xl mx-auto">
         <div className="cards-container relative">
-          {projects.map((project, i) => (
-            <div
-              key={project.id}
-              className="stacked-card mb-8 last:mb-0"
-              style={{ zIndex: i + 1 }}
-            >
-              <div className="card-inner w-full h-[75vh] bg-card border-2 border-border rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
-                {/* Text Section - Left on desktop */}
-                <div className="w-full md:w-1/2 h-[40%] md:h-full p-8 md:p-12 flex flex-col justify-center bg-card order-2 md:order-1">
-                  <h3 className="card__text-item text-3xl md:text-5xl font-bold mb-4 text-foreground">
-                    {project.title}
-                  </h3>
-                  <p className="card__text-item text-base md:text-lg text-muted-foreground mb-6 w-full md:w-4/5 hidden md:block">
-                    {project.description}
-                  </p>
-                  <div className="card__text-item flex flex-wrap gap-2">
-                    {project.tags.map((tag, tagIndex) => (
-                      <span
-                        key={tagIndex}
-                        className="px-3 py-1 bg-primary/20 text-primary rounded-full text-sm font-medium border border-primary/30"
-                      >
-                        {tag}
-                      </span>
-                    ))}
+          {projects.map((project, i) => {
+            // Alternate layout: even index (0, 2) = image left, odd index (1) = image right
+            const imageLeft = i % 2 === 0;
+            const textOrder = imageLeft ? 'md:order-2' : 'md:order-1';
+            const imageOrder = imageLeft ? 'md:order-1' : 'md:order-2';
+            
+            return (
+              <div
+                key={project.id}
+                className="stacked-card mb-8 last:mb-0"
+                style={{ zIndex: i + 1 }}
+              >
+                <div className="card-inner w-full h-[35vh] bg-card border-2 border-border rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
+                  {/* Image Section */}
+                  <div className={`relative w-full md:w-1/2 h-[50%] md:h-full overflow-hidden order-1 ${imageOrder}`}>
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="card__image w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none" />
+                  </div>
+
+                  {/* Text Section */}
+                  <div className={`w-full md:w-1/2 h-[50%] md:h-full p-8 md:p-12 flex flex-col justify-center bg-card order-2 ${textOrder}`}>
+                    <h3 className="card__text-item text-3xl md:text-5xl font-bold mb-4 text-foreground">
+                      {project.title}
+                    </h3>
+                    {project.subtitle && (
+                      <p className="card__text-item text-base md:text-lg text-muted-foreground mb-2">
+                        {project.subtitle}
+                      </p>
+                    )}
+                    <p className="card__text-item text-base md:text-lg text-muted-foreground mb-6 w-full md:w-4/5 hidden md:block">
+                      {project.description}
+                    </p>
+                    <div className="card__text-item flex items-center gap-2">
+                      <Monitor className="w-4 h-4 text-foreground" />
+                      <span className="text-sm md:text-base text-foreground">{project.tools}</span>
+                    </div>
                   </div>
                 </div>
-
-                {/* Image Section - Right on desktop */}
-                <div className="relative w-full md:w-1/2 h-[60%] md:h-full overflow-hidden order-1 md:order-2">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="card__image w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none" />
-                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
         
         {/* Extra space after cards so last card has room to scroll */}

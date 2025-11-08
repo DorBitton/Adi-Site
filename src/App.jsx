@@ -9,6 +9,8 @@ import Header from './components/Header';
 import { Hero, Transition } from './components/Hero';
 import Projects from './components/Projects';
 import SmallProjects from './components/SmallProjects';
+import AboutMe from './components/AboutMe';
+import Contact from './components/Contact';
 
 import './App.css';
 
@@ -43,6 +45,8 @@ const App = () => {
             <Transition />
             <Projects />
             <SmallProjects />
+            <AboutMe />
+            <Contact />
           </main>
         </div>
       </div>
