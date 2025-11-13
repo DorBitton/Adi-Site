@@ -145,18 +145,16 @@ const Hero = () => {
             </span>
             
             <span 
-              className={`italic transition-all duration-300 ${
+              className={`italic transition-all duration-300 text-primary ${
                 visibleWords['1-0'] ? 'opacity-100' : 'opacity-0'
               }`}
-              style={{ color: '#FF0084' }}
             >
               I'm{' '}
             </span>
             <span 
-              className={`italic transition-all duration-300 ${
+              className={`italic transition-all duration-300 text-primary ${
                 visibleWords['1-1'] ? 'opacity-100' : 'opacity-0'
               }`}
-              style={{ color: '#FF0084' }}
             >
               Adi
             </span>
@@ -200,10 +198,9 @@ const Hero = () => {
             <br />
             
             <span 
-              className={`italic transition-all duration-300 ${
+              className={`italic transition-all duration-300 text-primary ${
                 visibleWords['2-4'] ? 'opacity-100' : 'opacity-0'
               }`}
-              style={{ color: '#FF0084' }}
             >
               Buildings
             </span>
@@ -238,10 +235,9 @@ const Hero = () => {
             </span>
             
             <span 
-              className={`italic transition-all duration-300 ${
+              className={`italic transition-all duration-300 text-primary ${
                 visibleWords['3-3'] ? 'opacity-100' : 'opacity-0'
               }`}
-              style={{ color: '#FF0084' }}
             >
               Experiences
             </span>

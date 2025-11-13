@@ -15,7 +15,8 @@ const SmallProjects = () => {
       title: 'Chocolate Collection',
       description:
         'This mini project explores a playful and visually rich interface for presenting different chocolate flavors. The design focuses on smooth micro-interactions and a delightful animation that enhances the sensory feel of chocolate. The goal was to create a simple yet immersive experience—where motion, color, and typography work together to evoke taste and texture in a digital space.',
-      image: '/images/projects/1.png',
+      image: '/images/projects/smallProjects/1/1.png',
+      images: Array.from({ length: 6 }, (_, i) => `/images/projects/smallProjects/2/${i + 1}.jpg`),
       tools: 'figma',
     },
     {
@@ -24,7 +25,8 @@ const SmallProjects = () => {
       subtitle: 'Under ground station, commerce, residence.',
       description:
         'A city in motion. This project transforms everyday movement into an experience—where streets, open spaces, and the train flow together as one living system. The design celebrates rhythm, energy, and the seamless pulse of urban life.',
-      image: '/images/projects/2.png',
+      image: '/images/projects/smallProjects/2/1.jpg',
+      images: Array.from({ length: 6 }, (_, i) => `/images/projects/smallProjects/2/${i + 1}.jpg`),
       tools: 'Rhino, Twinmotion, Photoshop, Autocad, AI',
     },
     {
@@ -32,7 +34,8 @@ const SmallProjects = () => {
       title: 'Coastal Heritage Cities',
       description:
         'Inspired by the rhythm of coastal life, this project re imagines a historic seaside city where tradition meets climate-conscious design. Natural light, wind, and shade shape the experience—creating inviting public spaces that breathe with their surroundings. Drawing from the textures of local stone and the patterns of old streets, the design blends heritage with sustainability, crafting a city that feels both timeless and alive.',
-      image: '/images/projects/3.png',
+      image: '/images/projects/smallProjects/3/1.jpg',
+      images: Array.from({ length: 6 }, (_, i) => `/images/projects/smallProjects/3/${i + 1}.jpg`),
       tools: 'Rhino, Twinmotion, Photoshop, AI',
     },
   ];
@@ -45,11 +48,16 @@ const SmallProjects = () => {
 
       // Set initial states
       gsap.set('.card__image', { clipPath: 'inset(100% 0 0 0)' });
+      gsap.set('.image-container', { clipPath: 'inset(100% 0 0 0)' });
       gsap.set('.card__text-item', { opacity: 0, y: 30 });
 
       cards.forEach((card, i) => {
         const image = card.querySelector('.card__image');
+        const imageContainer = card.querySelector('.image-container');
+        const multipleImages = card.querySelectorAll('.card__image-multiple');
         const textItems = card.querySelectorAll('.card__text-item');
+        const project = projects[i];
+        const hasMultipleImages = project.images && project.images.length > 0;
 
         // Calculate scale based on card position (cards behind get smaller)
         const scaleValue = 1 - (cards.length - i - 1) * 0.05;
@@ -75,12 +83,83 @@ const SmallProjects = () => {
           start: 'top center+=100',
           once: true,
           onEnter: () => {
-            // Image reveal
-            gsap.to(image, {
-              clipPath: 'inset(0% 0 0 0)',
-              duration: 1.5,
-              ease: 'power3.out',
-            });
+            if (hasMultipleImages && multipleImages.length > 0) {
+              // For multiple images: initial clip reveal, then fade cycle
+              gsap.set(multipleImages, { opacity: 0 });
+              gsap.set(multipleImages[0], { opacity: 1 });
+              
+              // Initial clip reveal on container
+              gsap.to(imageContainer, {
+                clipPath: 'inset(0% 0 0 0)',
+                duration: 1.5,
+                ease: 'power3.out',
+                onComplete: () => {
+                  // Start fade cycle after clip reveal completes
+                  // Create fade in/out cycle for multiple images
+                  // Images crossfade: one fades out while the next fades in
+                  const fadeTimeline = gsap.timeline({ repeat: -1 });
+                  const imageDuration = 3; // Time each image is fully visible (seconds)
+                  const fadeDuration = 1.5; // Fade transition duration (seconds)
+                  
+                  multipleImages.forEach((img, imgIndex) => {
+                    const switchTime = imgIndex * imageDuration;
+                    const nextIndex = (imgIndex + 1) % multipleImages.length;
+                    const nextImg = multipleImages[nextIndex];
+                    
+                    if (imgIndex === 0) {
+                      // First image: fade out when switching to next
+                      fadeTimeline.to(img, {
+                        opacity: 0,
+                        duration: fadeDuration,
+                        ease: 'power2.inOut',
+                      }, switchTime);
+                      
+                      // Fade in next image at the same time
+                      fadeTimeline.to(nextImg, {
+                        opacity: 1,
+                        duration: fadeDuration,
+                        ease: 'power2.inOut',
+                      }, switchTime);
+                    } else if (imgIndex < multipleImages.length - 1) {
+                      // Middle images: fade out when switching to next
+                      fadeTimeline.to(img, {
+                        opacity: 0,
+                        duration: fadeDuration,
+                        ease: 'power2.inOut',
+                      }, switchTime);
+                      
+                      // Fade in next image at the same time
+                      fadeTimeline.to(nextImg, {
+                        opacity: 1,
+                        duration: fadeDuration,
+                        ease: 'power2.inOut',
+                      }, switchTime);
+                    } else {
+                      // Last image: fade out and loop back to first
+                      fadeTimeline.to(img, {
+                        opacity: 0,
+                        duration: fadeDuration,
+                        ease: 'power2.inOut',
+                      }, switchTime);
+                      
+                      // Fade in first image to complete the loop
+                      fadeTimeline.to(multipleImages[0], {
+                        opacity: 1,
+                        duration: fadeDuration,
+                        ease: 'power2.inOut',
+                      }, switchTime);
+                    }
+                  });
+                }
+              });
+            } else {
+              // Single image reveal
+              gsap.to(image, {
+                clipPath: 'inset(0% 0 0 0)',
+                duration: 1.5,
+                ease: 'power3.out',
+              });
+            }
 
             // Text reveal with stagger
             gsap.to(textItems, {
@@ -119,12 +198,26 @@ const SmallProjects = () => {
               >
                 <div className="card-inner w-full h-[35vh] bg-card border-2 border-border rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
                   {/* Image Section */}
-                  <div className={`relative w-full md:w-1/2 h-[50%] md:h-full overflow-hidden order-1 ${imageOrder}`}>
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="card__image w-full h-full object-cover"
-                    />
+                  <div className={`relative w-full md:w-1/2 h-[50%] md:h-full overflow-hidden order-1 ${imageOrder} image-container`}>
+                    {project.images && project.images.length > 0 ? (
+                      // Multiple images with fade effect
+                      project.images.map((imgSrc, imgIndex) => (
+                        <img
+                          key={imgIndex}
+                          src={imgSrc}
+                          alt={`${project.title} - ${imgIndex + 1}`}
+                          className="card__image-multiple absolute inset-0 w-full h-full object-cover"
+                          style={{ opacity: imgIndex === 0 ? 1 : 0 }}
+                        />
+                      ))
+                    ) : (
+                      // Single image
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="card__image w-full h-full object-cover"
+                      />
+                    )}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none" />
                   </div>
 

@@ -161,10 +161,7 @@ const Header = () => {
                                 <a 
                                     href="#contact"
                                     onClick={(e) => handleNavClick(e, '#contact')}
-                                    className="px-6 py-2.5 rounded-full font-medium transition-all duration-300 shadow-sm hover:shadow-lg hover:scale-105 text-white"
-                                    style={{ backgroundColor: '#FF0084' }}
-                                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#E60075'}
-                                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#FF0084'}
+                                    className="px-6 py-2.5 rounded-full font-medium transition-all duration-300 shadow-sm hover:shadow-lg hover:scale-105 bg-primary text-primary-foreground hover:opacity-90"
                                 >
                                     Contact
                                 </a>
@@ -254,10 +251,7 @@ const Header = () => {
                                     <a
                                         href="#contact"
                                         onClick={(e) => handleNavClick(e, '#contact')}
-                                        className="block px-4 py-3 rounded-lg text-center font-medium transition-all duration-300 text-white hover:scale-105 hover:shadow-lg"
-                                        style={{ backgroundColor: '#FF0084' }}
-                                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#E60075'}
-                                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#FF0084'}
+                                        className="block px-4 py-3 rounded-lg text-center font-medium transition-all duration-300 bg-primary text-primary-foreground hover:scale-105 hover:shadow-lg hover:opacity-90"
                                     >
                                         Contact
                                     </a>

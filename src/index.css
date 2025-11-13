@@ -49,8 +49,8 @@
   --color-card: oklch(15% 0 0);                           /* dark gray cards */
   --color-card-foreground: oklch(100% 0 0);               /* white text on cards */
   
-  --color-primary: oklch(59.75% 0.207 5.69);              /* pink/red for highlights */
-  --color-primary-foreground: oklch(100% 0 0);            /* white text on pink */
+  --color-primary: #FF0084;                                /* pink #FF0084 for highlights */
+  --color-primary-foreground: oklch(100% 0 0);             /* white text on pink */
   
   --color-secondary: oklch(20% 0 0);                      /* dark gray */
   --color-secondary-foreground: oklch(100% 0 0);          /* white text */
@@ -58,17 +58,17 @@
   --color-muted: oklch(25% 0 0);                          /* muted dark gray */
   --color-muted-foreground: oklch(70% 0 0);               /* light gray text */
   
-  --color-accent: oklch(59.75% 0.207 5.69);               /* pink/red accent */
-  --color-accent-foreground: oklch(100% 0 0);             /* white on accent */
+  --color-accent: #FF0084;                                 /* pink #FF0084 accent */
+  --color-accent-foreground: oklch(100% 0 0);              /* white on accent */
   
   --color-destructive: oklch(67.35% 0.225 27.32);
   --color-destructive-foreground: oklch(100% 0 0);
   
   --color-border: oklch(30% 0 0);                         /* dark borders */
   --color-input: oklch(25% 0 0);                          /* dark inputs */
-  --color-ring: oklch(59.75% 0.207 5.69);                 /* pink ring */
+  --color-ring: #FF0084;                                   /* pink ring #FF0084 */
   
-  --color-chart-1: oklch(59.75% 0.207 5.69);              /* pink for charts */
+  --color-chart-1: #FF0084;                                /* pink #FF0084 for charts */
   --color-chart-2: oklch(66% 0.14 30);
   --color-chart-3: oklch(54.11% 0.085 192.63);
   --color-chart-4: oklch(78.78% 0.136 89.87);
