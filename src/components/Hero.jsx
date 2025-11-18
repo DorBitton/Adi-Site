@@ -270,26 +270,26 @@ const Transition = () => {
   
   // Sample card data - you can customize this
   const cardData = [
-    { id: 1, avatar: '👨‍💻', header: 'User Research', text: 'Understanding user needs through interviews and testing' },
-    { id: 2, avatar: '🎨', header: 'Visual Design', text: 'Creating beautiful and functional interfaces' },
-    { id: 3, avatar: '📝', header: 'Wireframing', text: 'Sketching layouts and user flows' },
-    { id: 4, avatar: '🔍', header: 'Usability Testing', text: 'Validating designs with real users' },
-    { id: 5, avatar: '💡', header: 'Ideation', text: 'Brainstorming creative solutions' },
-    { id: 6, avatar: '📊', header: 'Data Analysis', text: 'Making informed design decisions' },
-    { id: 7, avatar: '🤝', header: 'Collaboration', text: 'Working with cross-functional teams' },
-    { id: 8, avatar: '🎯', header: 'Strategy', text: 'Aligning design with business goals' },
-    { id: 9, avatar: 'gif', gifSrc: '/images/cards/Rocket2.gif', header: 'Prototyping', text: 'Building interactive mockups' },
-    { id: 10, avatar: '✨', header: 'Innovation', text: 'Pushing boundaries of design' },
-    { id: 11, avatar: '📱', header: 'Mobile First', text: 'Designing for all screen sizes' },
-    { id: 12, avatar: '🏗️', header: 'Architecture', text: 'Structuring space and experience' },
-    { id: 13, avatar: '🎭', header: 'Personas', text: 'Creating user archetypes' },
-    { id: 14, avatar: '🔧', header: 'Tools', text: 'Mastering design software' },
-    { id: 15, avatar: '🌟', header: 'Excellence', text: 'Striving for quality in every detail' },
-    { id: 16, avatar: '🎪', header: 'Experience', text: 'Crafting memorable interactions' },
-    { id: 17, avatar: '📋', header: 'Documentation', text: 'Clear design specifications' },
-    { id: 18, avatar: '🎓', header: 'Learning', text: 'Continuous growth and development' },
-    { id: 19, avatar: '🌈', header: 'Accessibility', text: 'Design for everyone' },
-    { id: 20, avatar: '⚡', header: 'Performance', text: 'Fast and efficient solutions' }
+    { id: 1, gifSrc: '/images/cards/User Research.png', header: 'User Research', text: 'Understanding user needs through interviews and testing' },
+    { id: 2, gifSrc: '/images/cards/Visual Design.png', header: 'Visual Design', text: 'Creating beautiful and functional interfaces' },
+    { id: 3, gifSrc: '/images/cards/Wireframing.png', header: 'Wireframing', text: 'Sketching layouts and user flows' },
+    { id: 4, gifSrc: '/images/cards/Usability Testing.png', header: 'Usability Testing', text: 'Validating designs with real users' },
+    { id: 5, gifSrc: '/images/cards/Ideation.png', header: 'Ideation', text: 'Brainstorming creative solutions' },
+    { id: 6, gifSrc: '/images/cards/Data Analysis.png', header: 'Data Analysis', text: 'Making informed design decisions' },
+    { id: 7, gifSrc: '/images/cards/Collaboration.png', header: 'Collaboration', text: 'Working with cross-functional teams' },
+    { id: 8, gifSrc: '/images/cards/strategy.png', header: 'Strategy', text: 'Aligning design with business goals' },
+    { id: 9, gifSrc: '/images/cards/Prototyping.png', header: 'Prototyping', text: 'Building interactive mockups' },
+    { id: 10, gifSrc: '/images/cards/Innovation.png', header: 'Innovation', text: 'Pushing boundaries of design' },
+    { id: 11, gifSrc: '/images/cards/Mobile First.png', header: 'Mobile First', text: 'Designing for all screen sizes' },
+    { id: 12, gifSrc: '/images/cards/Architecture.png', header: 'Architecture', text: 'Structuring space and experience' },
+    { id: 13, gifSrc: '/images/cards/Personas.png', header: 'Personas', text: 'Creating user archetypes' },
+    { id: 14, gifSrc: '/images/cards/Tools.png', header: 'Tools', text: 'Mastering design software' },
+    { id: 15, gifSrc: '/images/cards/Excellence.png', header: 'Excellence', text: 'Striving for quality in every detail' },
+    { id: 16, gifSrc: '/images/cards/Experience.png', header: 'Experience', text: 'Crafting memorable interactions' },
+    { id: 17, gifSrc: '/images/cards/Documentation.png', header: 'Documentation', text: 'Clear design specifications' },
+    { id: 18, gifSrc: '/images/cards/Learning.png', header: 'Learning', text: 'Continuous growth and development' },
+    { id: 19, gifSrc: '/images/cards/Accessibility.png', header: 'Accessibility', text: 'Design for everyone' },
+    { id: 20, gifSrc: '/images/cards/Performance.png', header: 'Performance', text: 'Fast and efficient solutions' }
   ]
 
   useEffect(() => {
@@ -370,15 +370,16 @@ const Transition = () => {
     >
       {/* Avatar/Image on top */}
       <div className="flex justify-center mb-4">
-        {avatar === 'gif' ? (
-          <div className="w-20 h-20 flex items-center justify-center" style={{ minHeight: '80px' }}>
+        {gifSrc ? (
+          <div className="w-14 h-14 flex items-center justify-center" style={{ minHeight: '56px' }}>
             <img 
               src={gifSrc} 
               alt={header}
               style={{ 
-                width: '80px', 
-                height: '80px',
-                objectFit: 'contain'
+                width: '56px', 
+                height: '56px',
+                objectFit: 'contain',
+                opacity: 0.7
               }}
             />
           </div>

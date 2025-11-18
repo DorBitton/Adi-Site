@@ -198,27 +198,43 @@ const SmallProjects = () => {
               >
                 <div className="card-inner w-full h-[35vh] bg-card border-2 border-border rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
                   {/* Image Section */}
-                  <div className={`relative w-full md:w-1/2 h-[50%] md:h-full overflow-hidden order-1 ${imageOrder} image-container`}>
+                  <div className={`relative w-full md:w-1/2 h-[50%] md:h-full overflow-hidden order-1 ${imageOrder} image-container flex items-center justify-center bg-card`}>
                     {project.images && project.images.length > 0 ? (
                       // Multiple images with fade effect
-                      project.images.map((imgSrc, imgIndex) => (
-                        <img
-                          key={imgIndex}
-                          src={imgSrc}
-                          alt={`${project.title} - ${imgIndex + 1}`}
-                          className="card__image-multiple absolute inset-0 w-full h-full object-cover"
-                          style={{ opacity: imgIndex === 0 ? 1 : 0 }}
-                        />
-                      ))
+                      <>
+                        {project.images.map((imgSrc, imgIndex) => (
+                          <img
+                            key={imgIndex}
+                            src={imgSrc}
+                            alt={`${project.title} - ${imgIndex + 1}`}
+                            className="card__image-multiple absolute w-[90%] h-[90%] object-cover rounded-2xl"
+                            style={{ 
+                              opacity: imgIndex === 0 ? 1 : 0,
+                              top: '50%',
+                              left: '50%',
+                              transform: 'translate(-50%, -50%)'
+                            }}
+                          />
+                        ))}
+                        <div className="absolute w-[90%] h-[90%] bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none rounded-2xl" style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }} />
+                      </>
                     ) : (
                       // Single image
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="card__image w-full h-full object-cover"
-                      />
+                      <>
+                        <img
+                          src={project.image}
+                          alt={project.title}
+                          className="card__image w-[90%] h-[90%] object-cover rounded-2xl"
+                          style={{
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)'
+                          }}
+                        />
+                        <div className="absolute w-[90%] h-[90%] bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none rounded-2xl" style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }} />
+                      </>
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none" />
                   </div>
 
                   {/* Text Section */}
