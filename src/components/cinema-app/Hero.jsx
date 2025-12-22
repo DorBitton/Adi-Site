@@ -92,8 +92,8 @@ const CinemaAppHero = ({ titleRef, subtitleRef, mainImageRef }) => {
   }, [titleRef, subtitleRef, mainImageRef])
 
   return (
-    <div ref={containerRef} className="w-full bg-black pt-20 lg:pt-32 pb-16 lg:pb-24">
-      <div className="w-full max-w-7xl mx-auto px-6 lg:px-12">
+    <div ref={containerRef} className="w-full min-h-screen flex flex-col pt-20 lg:pt-32 bg-card" >
+      <div className="w-full max-w-7xl mx-auto px-6 lg:px-12 flex flex-col flex-1">
         {/* Title Section */}
         <div className="text-center mb-12 lg:mb-16">
           <h1
@@ -112,8 +112,8 @@ const CinemaAppHero = ({ titleRef, subtitleRef, mainImageRef }) => {
           </p>
         </div>
 
-        {/* Main Image */}
-        <div className="flex justify-center">
+        {/* Main Image - positioned at bottom */}
+        <div className="flex justify-center mt-auto mb-0">
           <img
             ref={mainImageRef}
             src="/images/cinema-app/v429_133.png"

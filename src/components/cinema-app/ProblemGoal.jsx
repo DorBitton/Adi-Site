@@ -54,12 +54,20 @@ const ProblemGoal = ({ problemGoalRef }) => {
   return (
     <div ref={containerRef} className="w-full bg-black py-16 lg:py-24">
       <div className="w-full max-w-7xl mx-auto px-6 lg:px-12">
+        {/* Overview Title */}
+        <h2
+          className="text-3xl lg:text-5xl font-extrabold text-center text-white mb-12 lg:mb-16"
+          style={{ fontFamily: 'Lato, sans-serif' }}
+        >
+          Overview
+        </h2>
+
         <div
           ref={problemGoalRef}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 mb-16 lg:mb-24 opacity-100"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 opacity-100"
         >
           {/* Problem */}
-          <div className="space-y-4 text-center lg:text-left">
+          <div className="space-y-4 text-center">
             <h3
               className="text-xl lg:text-2xl font-extrabold text-white mb-6"
               style={{ fontFamily: 'Lato, sans-serif' }}
@@ -78,7 +86,7 @@ const ProblemGoal = ({ problemGoalRef }) => {
           </div>
 
           {/* Goal */}
-          <div className="space-y-4 text-center lg:text-left">
+          <div className="space-y-4 text-center">
             <h3
               className="text-xl lg:text-2xl font-extrabold text-white mb-6"
               style={{ fontFamily: 'Lato, sans-serif' }}
