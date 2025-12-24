@@ -84,8 +84,7 @@ const InformationArchitecture = ({ iaRef }) => {
         <div ref={iaRef} className="space-y-12 opacity-100">
           {/* Title */}
           <h2
-            className="text-3xl lg:text-5xl font-extrabold text-center text-white mb-8"
-            style={{ fontFamily: 'Lato, sans-serif' }}
+            className="text-[50px] text-lato-bold font-bold text-center text-white"
           >
             Information Architecture (IA)
           </h2>
@@ -94,7 +93,7 @@ const InformationArchitecture = ({ iaRef }) => {
           <div className="max-w-4xl mx-auto">
             <div className="bg-neutral-900/50 border border-neutral-700 rounded-lg p-6 lg:p-8 mb-8">
               <h3
-                className="text-xl lg:text-2xl font-extrabold text-white mb-4"
+                className="text-[24px] font-extrabold text-white mb-4"
                 style={{ fontFamily: 'Lato, sans-serif' }}
               >
                 User Flow
@@ -116,8 +115,8 @@ const InformationArchitecture = ({ iaRef }) => {
 
             {/* Description */}
             <p
-              className="text-sm lg:text-base text-neutral-300 leading-relaxed text-center mb-12"
-              style={{ fontFamily: 'Lato, sans-serif', fontWeight: 300 }}
+              className="text-[20px] text-neutral-300 font-light leading-relaxed text-center mb-12"
+              style={{ fontFamily: 'Lato-light, sans-serif' }}
             >
               The goal of the IA is to create a seamless and intuitive movie-booking experience by simplifying navigation and guiding users through the booking flow.
             </p>

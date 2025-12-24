@@ -56,8 +56,7 @@ const ProblemGoal = ({ problemGoalRef }) => {
       <div className="w-full max-w-7xl mx-auto px-6 lg:px-12">
         {/* Overview Title */}
         <h2
-          className="text-3xl lg:text-5xl font-extrabold text-center text-white mb-12 lg:mb-16"
-          style={{ fontFamily: 'Lato, sans-serif' }}
+          className="text-[50px] text-lato-bold font-bold text-center text-white mb-16"
         >
           Overview
         </h2>
@@ -69,36 +68,32 @@ const ProblemGoal = ({ problemGoalRef }) => {
           {/* Problem */}
           <div className="space-y-4 text-center">
             <h3
-              className="text-xl lg:text-2xl font-extrabold text-white mb-6"
+              className="text-[24px] font-extrabold text-white mb-6"
               style={{ fontFamily: 'Lato, sans-serif' }}
             >
               Problem
             </h3>
             <p
-              className="text-sm lg:text-base text-neutral-300 leading-relaxed"
-              style={{ fontFamily: 'Lato, sans-serif', fontWeight: 300 }}
+              className="text-[20px] text-neutral-300 font-light leading-relaxed"
+              style={{ fontFamily: 'Lato-light, sans-serif' }}
             >
-              The original app had a cluttered interface and a confusing flow that made it
-              difficult for users to browse and discover movies easily. In this redesign, I
-              focused on creating a clear, structured, and modern experience that supports
-              intuitive navigation and highlights visual content.
+            The original application suffered from a cluttered and inconsistent interface that made navigation confusing and unintuitive. The visual hierarchy was unclear, with too much information competing for attention on each screen, making it difficult for users to browse or discover movies easily. In addition, the application was not available in English, which limited accessibility and made the experience less intuitive for international users.
             </p>
           </div>
 
           {/* Goal */}
           <div className="space-y-4 text-center">
             <h3
-              className="text-xl lg:text-2xl font-extrabold text-white mb-6"
+              className="text-[24px] font-extrabold text-white mb-6"
               style={{ fontFamily: 'Lato, sans-serif' }}
             >
               Goal
             </h3>
             <p
-              className="text-sm lg:text-base text-neutral-300 leading-relaxed"
-              style={{ fontFamily: 'Lato, sans-serif', fontWeight: 300 }}
+              className="text-[20px] text-neutral-300 font-lato-light font-light leading-relaxed"
+              style={{ fontFamily: 'Lato-light, sans-serif' }}
             >
-              To redesign the app with a clear structure, intuitive flow, and modern visual
-              style, focusing on simplicity, hierarchy, and user engagement.
+            The goal of this project was to redesign the application with a clear and consistent structure that supports an intuitive user flow. The focus was on creating a modern visual style that emphasizes simplicity, strong hierarchy, and user engagement, while making the overall browsing experience more accessible and enjoyable for all users.
             </p>
           </div>
         </div>

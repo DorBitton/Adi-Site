@@ -98,15 +98,14 @@ const CinemaAppHero = ({ titleRef, subtitleRef, mainImageRef }) => {
         <div className="text-center mb-12 lg:mb-16">
           <h1
             ref={titleRef}
-            className="text-6xl lg:text-8xl xl:text-[100px] font-thin mb-4 text-white tracking-wide opacity-100"
+            className="italic text-[96px] tracking-wide"
             style={{ fontFamily: 'Casta, serif' }}
           >
             Cinema App
           </h1>
           <p
             ref={subtitleRef}
-            className="text-base lg:text-xl text-neutral-400 max-w-xl mx-auto opacity-100"
-            style={{ fontFamily: 'Lato, sans-serif', fontWeight: 300 }}
+            className="text-[24px] font-lato-light font-light"
           >
             UI/UX redesign project of an existing movie app
           </p>

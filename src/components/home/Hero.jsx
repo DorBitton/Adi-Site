@@ -133,7 +133,7 @@ const Hero = () => {
         <div ref={contentRef}>
         <div className="max-w-6xl mx-auto w-full text-center mb-6 sm:mb-8">
           <h1 
-            className="text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-tight"
+            className="text-[96px] leading-tight"
             style={{fontFamily: 'Casta, serif'}}
           >
             <span 
@@ -253,7 +253,7 @@ const Hero = () => {
         
         <div className="max-w-4xl mx-auto w-full text-center px-4 mt-[7vh]">
           <p 
-            className={`font-lato-light font-light text-2xl leading-relaxed transition-all duration-1000 text-white ${
+            className={`font-lato-light font-light text-[24px] ]leading-relaxed transition-all duration-1000 text-white ${
               showSubtext ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             }`}
           >

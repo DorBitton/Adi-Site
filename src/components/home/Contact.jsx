@@ -32,69 +32,69 @@ const Contact = () => {
   return (
     <section
       ref={containerRef}
-      className="relative w-full min-h-[60vh] bg-background flex items-center justify-start py-20 md:py-32"
+      className="relative w-full min-h-[60vh] bg-background flex items-center justify-center py-20 md:py-32"
     >
       <div id="contact" className="w-full px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20">
-        <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-16 lg:gap-20">
-          {/* Left side - Text */}
-          <div ref={textRef} className="space-y-4 ml-[10%] lg:ml-0 flex-1">
-            <h2 
-              className="contact-line text-[80px] italic text-[#F5F0E7] leading-tight"
-              style={{fontFamily: 'Casta, serif'}}
+        <div className="mx-auto max-w-6xl flex flex-col lg:flex-row items-start lg:items-center justify-between gap-12 lg:gap-20 ml-[10%]">
+          {/* Left side - Big Casta text */}
+          <div ref={textRef} className="space-y-2 sm:space-y-3 flex-1">
+            <h2
+              className="contact-line text-[56px] sm:text-[64px] md:text-[72px] lg:text-[80px] italic text-[#F5F0E7] leading-none tracking-tight"
+              style={{ fontFamily: 'Casta, serif' }}
             >
               Let's create
             </h2>
-            <h2 
-              className="contact-line text-[80px] italic text-[#F5F0E7] leading-tight"
-              style={{fontFamily: 'Casta, serif'}}
+            <h2
+              className="contact-line text-[56px] sm:text-[64px] md:text-[72px] lg:text-[80px] italic text-[#F5F0E7] leading-none tracking-tight"
+              style={{ fontFamily: 'Casta, serif' }}
             >
               great things
             </h2>
-            <h2 
-              className="contact-line text-[80px] italic text-[#F5F0E7] leading-tight"
-              style={{fontFamily: 'Casta, serif'}}
+            <h2
+              className="contact-line text-[56px] sm:text-[64px] md:text-[72px] lg:text-[80px] italic text-[#F5F0E7] leading-none tracking-tight"
+              style={{ fontFamily: 'Casta, serif' }}
             >
               together
             </h2>
           </div>
 
           {/* Right side - Contact Info */}
-          <div className="flex flex-col gap-8 lg:gap-10 w-full lg:w-auto lg:min-w-[280px]">
-            {/* Divider line */}
-            <div className="hidden lg:block w-px h-16 bg-[#F5F0E7]/20"></div>
-            
-            <div className="flex flex-col gap-6">
-              <div className="group">
-                <div className="text-[#F5F0E7]/60 font-lato-light text-sm uppercase tracking-wider mb-2">
-                  Name
-                </div>
-                <div className="text-[#F5F0E7] font-lato text-xl">
-                  Adi Gur
-                </div>
+          <div className="w-full lg:w-[320px] xl:w-[360px]">
+            {/* Inner glass panel */}
+            <div className="flex flex-col gap-5 text-[#F5F0E7] rounded-3xl border border-white/15 bg-white/5 backdrop-blur-2xl p-6 sm:p-7 shadow-[0_0_30px_rgba(0,0,0,0.45)]">
+              <div className="text-[20px] font-lato-light font-light text-[#F5F0E7]/45 mb-1">
+                Contact
               </div>
-
-              <div className="group">
-                <div className="text-[#F5F0E7]/60 font-lato-light text-sm uppercase tracking-wider mb-2">
-                  Email
+              <div className="space-y-4">
+                <div>
+                  <div className="text-[20px] font-lato-light font-light">
+                    Adi Gur
+                  </div>
                 </div>
-                <a 
-                  href="mailto:adigur94@gmail.com" 
-                  className="text-[#F5F0E7] font-lato text-xl hover:text-primary transition-colors duration-300 inline-block group-hover:translate-x-1 transition-transform"
-                >
-                  adigur94@gmail.com
-                </a>
-              </div>
 
-              <div className="group">
-                <div className="text-[#F5F0E7]/60 font-lato-light text-sm uppercase tracking-wider mb-2">
-                  Phone
+                <div>
+                  <div className="text-[20px] font-lato-light font-light text-[#F5F0E7]/45 mb-1.5">
+                    Email
+                  </div>
+                  <a
+                    href="mailto:adigur94@gmail.com"
+                    className="inline-flex items-center gap-2 text-[20px] font-lato-light font-light"
+                  >
+                    <span>adigur94@gmail.com</span>
+                  </a>
                 </div>
-                <a 
-                  href="tel:+40756266862" 
-                  className="text-[#F5F0E7] font-lato text-xl hover:text-primary transition-colors duration-300 inline-block group-hover:translate-x-1 transition-transform"
-                >
-                  +40756266862
-                </a>
+
+                <div>
+                  <div className="text-[20px] font-lato-light font-light text-[#F5F0E7]/45 mb-1.5">
+                    Phone
+                  </div>
+                  <a
+                    href="tel:+40756266862"
+                    className="inline-flex items-center gap-2 text-[20px] font-lato-light font-light"
+                  >
+                    <span>+40756266862</span>
+                  </a>
+                </div>
               </div>
             </div>
           </div>

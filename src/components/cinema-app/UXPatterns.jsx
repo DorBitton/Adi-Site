@@ -99,23 +99,23 @@ const UXPatterns = ({ uxPatternsRef }) => {
               >
                 <div className="space-y-4">
                   <h3
-                    className="text-xl lg:text-2xl font-extrabold text-white"
+                    className="text-[24px] font-bold text-white mb-6"
                     style={{ fontFamily: 'Lato, sans-serif' }}
                   >
                     {pattern.title}
                   </h3>
                   <p
-                    className="text-sm lg:text-base text-neutral-300 leading-relaxed"
-                    style={{ fontFamily: 'Lato, sans-serif', fontWeight: 300 }}
+                    className="text-[20px] text-neutral-300 font-light leading-relaxed"
+                    style={{ fontFamily: 'Lato-light, sans-serif' }}
                   >
                     {pattern.description}
                   </p>
                   <div className="pt-4 border-t border-neutral-700">
                     <p
-                      className="text-sm lg:text-base text-white leading-relaxed font-medium"
-                      style={{ fontFamily: 'Lato, sans-serif', fontWeight: 400 }}
+                      className="text-[20px] text-white leading-relaxed"
+                      style={{ fontFamily: 'Lato-light, sans-serif', fontWeight: 400 }}
                     >
-                      <span className="text-neutral-400">Insight for my project:</span> {pattern.insight}
+                      <span className="text-[20px] text-neutral-300">Insight for my project:</span> {pattern.insight}
                     </p>
                   </div>
                 </div>
@@ -126,16 +126,14 @@ const UXPatterns = ({ uxPatternsRef }) => {
           {/* Concluding Summary */}
           <div className="max-w-4xl mx-auto mt-12">
             <p
-              className="text-base lg:text-lg text-white leading-relaxed text-left mb-6"
-              style={{ fontFamily: 'Lato, sans-serif', fontWeight: 300 }}
+              className="text-[20px] text-white leading-relaxed text-center mb-6"
+              style={{ fontFamily: 'Lato-light, sans-serif', fontWeight: 400 }}
             >
-              The reviewed apps share a common philosophy:
-              <br />
-              focus on visuals, simplify navigation, reduce clutter, and create an engaging and smooth viewing experience.
+              The reviewed apps share a common philosophy: <br /> focus on visuals, simplify navigation, reduce clutter, and create an engaging and smooth viewing&nbsp;experience.
             </p>
             <p
-              className="text-base lg:text-lg text-white leading-relaxed text-left"
-              style={{ fontFamily: 'Lato, sans-serif', fontWeight: 300 }}
+              className="text-[20px] text-white leading-relaxed text-center mb-6"
+              style={{ fontFamily: 'Lato-light, sans-serif', fontWeight: 400 }}
             >
               These insights guided the redesign of my cinema app, helping me move away from the original cluttered, outdated layout and toward a clean, modern, visually-driven, and more intuitive experience for browsing and booking movies.
             </p>

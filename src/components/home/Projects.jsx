@@ -105,12 +105,12 @@ const Projects = () => {
                     <p className="text-2xl font-light font-lato-light text-neutral-300 tracking-wider -translate-y-[3vh]">
                       Featured Project
                     </p>
-                    <h2 className="text-[48px] font-bold text-neutral-100 leading-tight"
+                    <h2 className="text-[52px] font-bold text-neutral-100 leading-tight"
                     style={{fontFamily: 'Casta, serif'}}
                     >
                       <span className="italic">Cinema Application</span>
                     </h2>
-                    <p className="text-2xl font-light font-lato-light text-neutral-300 max-w-3xl mx-auto text-center leading-relaxed">
+                    <p className="text-[20px] font-light font-lato-light text-neutral-300 max-w-3xl mx-auto text-center leading-relaxed">
                     UI/UX redesign of a movie booking app, transforming a cluttered interface 
                     into a clean, modern experience. Features intuitive navigation, bold visual 
                     hierarchy, and a streamlined booking flow from browsing to seat selection.</p>
