@@ -4,11 +4,18 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ScrollSmoother } from 'gsap/ScrollSmoother'
 import { ArrowUpRight } from 'lucide-react'
+import { useMobile, useTablet, useTabletLg, useDesktop } from '../../hooks/useResponsive'
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother)
 
 const Projects = () => {  
   const sectionRef = useRef(null)
+  
+  // Responsive hooks
+  const isMobile = useMobile()
+  const isTablet = useTablet()
+  const isTabletLg = useTabletLg()
+  const isDesktop = useDesktop()
 
   const baseUrl = import.meta.env.BASE_URL
   const projects = [
@@ -65,7 +72,11 @@ const Projects = () => {
   }, [])
 
   return (
-    <div id="projects" className="w-full py-20 px-6 lg:px-12 bg-card">
+    <div id="projects" className={`w-full bg-card ${
+      isMobile ? 'py-12 px-4' : 
+      isTablet ? 'py-16 px-6' : 
+      'py-20 px-6 lg:px-12'
+    }`}>
       <section 
         ref={sectionRef}
         className="h-auto lg:min-h-[85vh]"
@@ -77,10 +88,18 @@ const Projects = () => {
               <Link
                 key={project.id}
                 to={project.link}
-                className="group relative block cursor-pointer bg-gradient-to-br from-neutral-800/30 to-neutral-900/30 rounded-[2.5rem] border border-neutral-700/40 transition-all duration-500 hover:border-neutral-600/60 p-3 no-underline"
+                className={`group relative block cursor-pointer bg-gradient-to-br from-neutral-800/30 to-neutral-900/30 border border-neutral-700/40 transition-all duration-500 hover:border-neutral-600/60 no-underline ${
+                  isMobile ? 'rounded-2xl p-2' : 
+                  isTablet ? 'rounded-3xl p-2.5' : 
+                  'rounded-[2.5rem] p-3'
+                }`}
               >
                 {/* Inner Card */}
-                <div className="relative overflow-hidden rounded-[2rem] border border-neutral-700 bg-gradient-to-br from-[#252525] to-[#101010] p-10 lg:p-14 transition-all duration-500 hover:border-neutral-500 h-full">
+                <div className={`relative overflow-hidden border border-neutral-700 bg-gradient-to-br from-[#252525] to-[#101010] transition-all duration-500 hover:border-neutral-500 h-full ${
+                  isMobile ? 'rounded-xl p-6' : 
+                  isTablet ? 'rounded-2xl p-8' : 
+                  'rounded-[2rem] p-10 lg:p-14'
+                }`}>
                   {/* Glare effects */}
                   <div className="pointer-events-none absolute inset-0 z-0">
                     {/* Background radial glow - Pink theme */}
@@ -92,17 +111,29 @@ const Projects = () => {
                   {/* Content */}
                   <div className="relative z-10 flex flex-col items-center justify-center h-full text-center space-y-6">
                     {/* Text Content */}
-                    <div className="space-y-8">
-                      <p className="text-2xl font-light font-lato-light text-neutral-300 tracking-wider -translate-y-[3vh]">
+                    <div className={isMobile ? 'space-y-4' : isTablet ? 'space-y-6' : 'space-y-8'}>
+                      <p className={`font-light font-lato-light text-neutral-300 tracking-wider ${
+                        isMobile ? 'text-lg -translate-y-[1vh]' : 
+                        isTablet ? 'text-xl -translate-y-[2vh]' : 
+                        'text-2xl -translate-y-[3vh]'
+                      }`}>
                         Featured Project
                       </p>
                       <h2
-                        className="text-[52px] font-bold text-neutral-100 leading-tight"
+                        className={`font-bold text-neutral-100 leading-tight ${
+                          isMobile ? 'text-[32px]' : 
+                          isTablet ? 'text-[40px]' : 
+                          'text-[52px]'
+                        }`}
                         style={{ fontFamily: 'Casta, serif' }}
                       >
                         <span className="italic">Cinema Application</span>
                       </h2>
-                      <p className="text-[20px] font-light font-lato-light text-neutral-300 max-w-3xl mx-auto text-center leading-relaxed">
+                      <p className={`font-light font-lato-light text-neutral-300 mx-auto text-center leading-relaxed ${
+                        isMobile ? 'text-[16px] max-w-full' : 
+                        isTablet ? 'text-[18px] max-w-2xl' : 
+                        'text-[20px] max-w-3xl'
+                      }`}>
                         UI/UX redesign of a movie booking app, transforming a cluttered interface
                         into a clean, modern experience. Features intuitive navigation, bold visual
                         hierarchy, and a streamlined booking flow from browsing to seat selection.
@@ -110,21 +141,31 @@ const Projects = () => {
                     </div>
 
                     {/* Images in a line */}
-                    <div className="flex flex-row gap-4 w-full max-w-4xl mt-8 justify-center items-center">
+                    <div className={`flex w-full justify-center items-center ${
+                      isMobile ? 'flex-col gap-3 max-w-full mt-4' : 
+                      isTablet ? 'flex-row flex-wrap gap-3 max-w-3xl mt-6' : 
+                      'flex-row gap-4 max-w-4xl mt-8'
+                    }`}>
                       {[1, 2, 3, 4].map((index) => (
                         <img
                           key={index}
                           src={`${baseUrl}images/projects/CinemaApp/${index}.png`}
                           alt={`Cinema App screenshot ${index}`}
-                          className="flex-1 max-w-full h-auto rounded-lg object-contain"
+                          className={`max-w-full h-auto rounded-lg object-contain ${
+                            isMobile ? 'w-full' : 
+                            isTablet ? 'flex-1 min-w-[45%]' : 
+                            'flex-1'
+                          }`}
                         />
                       ))}
                     </div>
                   </div>
 
                   {/* Arrow Button */}
-                  <div className="absolute right-6 top-6 flex h-12 w-12 lg:h-14 lg:w-14 items-center justify-center rounded-full border border-neutral-600 bg-neutral-800/50 backdrop-blur-sm transition-all duration-500 hover:bg-neutral-700 z-20">
-                    <ArrowUpRight className="w-6 h-6 lg:w-7 lg:h-7 text-neutral-200" />
+                  <div className={`absolute right-6 top-6 flex items-center justify-center rounded-full border border-neutral-600 bg-neutral-800/50 backdrop-blur-sm transition-all duration-500 hover:bg-neutral-700 z-20 ${
+                    isMobile ? 'h-10 w-10' : 'h-12 w-12 lg:h-14 lg:w-14'
+                  }`}>
+                    <ArrowUpRight className={isMobile ? 'w-5 h-5 text-neutral-200' : 'w-6 h-6 lg:w-7 lg:h-7 text-neutral-200'} />
                   </div>
                 </div>
               </Link>
@@ -171,15 +212,21 @@ const Projects = () => {
                           key={index}
                           src={`${baseUrl}images/projects/CinemaApp/${index}.png`}
                           alt={`Cinema App screenshot ${index}`}
-                          className="flex-1 max-w-full h-auto rounded-lg object-contain"
+                          className={`max-w-full h-auto rounded-lg object-contain ${
+                            isMobile ? 'w-full' : 
+                            isTablet ? 'flex-1 min-w-[45%]' : 
+                            'flex-1'
+                          }`}
                         />
                       ))}
                     </div>
                   </div>
 
                   {/* Arrow Button */}
-                  <div className="absolute right-6 top-6 flex h-12 w-12 lg:h-14 lg:w-14 items-center justify-center rounded-full border border-neutral-600 bg-neutral-800/50 backdrop-blur-sm transition-all duration-500 hover:bg-neutral-700 z-20">
-                    <ArrowUpRight className="w-6 h-6 lg:w-7 lg:h-7 text-neutral-200" />
+                  <div className={`absolute right-6 top-6 flex items-center justify-center rounded-full border border-neutral-600 bg-neutral-800/50 backdrop-blur-sm transition-all duration-500 hover:bg-neutral-700 z-20 ${
+                    isMobile ? 'h-10 w-10' : 'h-12 w-12 lg:h-14 lg:w-14'
+                  }`}>
+                    <ArrowUpRight className={isMobile ? 'w-5 h-5 text-neutral-200' : 'w-6 h-6 lg:w-7 lg:h-7 text-neutral-200'} />
                   </div>
                 </div>
               </a>

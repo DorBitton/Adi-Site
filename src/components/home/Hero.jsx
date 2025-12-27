@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useMobile, useTablet, useDesktop } from '../../hooks/useResponsive'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -9,6 +10,11 @@ const Hero = () => {
     const [showSubtext, setShowSubtext] = useState(false)
     const heroRef = useRef(null)
     const contentRef = useRef(null)
+    
+    // Responsive hooks
+    const isMobile = useMobile()
+    const isTablet = useTablet()
+    const isDesktop = useDesktop()
     
     const phrases = [
       {
@@ -133,7 +139,11 @@ const Hero = () => {
         <div ref={contentRef}>
         <div className="max-w-6xl mx-auto w-full text-center mb-6 sm:mb-8">
           <h1 
-            className="text-[96px] leading-tight"
+            className={`leading-tight ${
+              isMobile ? 'text-[40px]' : 
+              isTablet ? 'text-[56px]' : 
+              'text-[96px]'
+            }`}
             style={{fontFamily: 'Casta, serif'}}
           >
             <span 
@@ -253,12 +263,17 @@ const Hero = () => {
         
         <div className="max-w-4xl mx-auto w-full text-center px-4 mt-[7vh]">
           <p 
-            className={`font-lato-light font-light text-[24px] ]leading-relaxed transition-all duration-1000 text-white ${
-              showSubtext ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-            }`}
+            className={`font-lato-light font-light leading-relaxed transition-all duration-1000 text-white ${
+              isMobile ? 'text-[16px]' : 
+              isTablet ? 'text-[18px]' : 
+              'text-[24px]'
+            } ${showSubtext ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
           >
-            a combination that shaped how I understand space, structure,<br />
-            and the way people interact with their environment.
+            {isMobile ? (
+              <>a combination that shaped how I understand space, structure, and the way people interact with their environment.</>
+            ) : (
+              <>a combination that shaped how I understand space, structure,<br />and the way people interact with their environment.</>
+            )}
           </p>
         </div>
         </div>
@@ -268,6 +283,10 @@ const Hero = () => {
   
 const Transition = () => {
   const sectionRef = useRef(null)
+  
+  // Responsive hooks
+  const isMobile = useMobile()
+  const isTablet = useTablet()
   
   // Sample card data - you can customize this
   const baseUrl = import.meta.env.BASE_URL
@@ -378,36 +397,46 @@ const Transition = () => {
 
   const SkillCard = ({ avatar, gifSrc, header, text }) => (
     <div 
-      className="skill-card flex-shrink-0 w-64 backdrop-blur-2xl border-2 border-border shadow-lg rounded-2xl p-6 hover:shadow-2xl transition-shadow transition-all duration-300 bg-card/5 "
+      className={`skill-card flex-shrink-0 backdrop-blur-2xl border-2 border-border shadow-lg rounded-2xl hover:shadow-2xl transition-shadow transition-all duration-300 bg-card/5 ${
+        isMobile ? 'w-40 p-3' : 
+        isTablet ? 'w-56 p-5' : 
+        'w-64 p-6'
+      }`}
     >
       {/* Avatar/Image on top */}
       <div className="flex justify-center mb-4">
         {gifSrc ? (
-          <div className="w-[50px] h-[50px] flex items-center justify-center" style={{ minHeight: '50px' }}>
+          <div className={`flex items-center justify-center ${
+            isMobile ? 'w-[32px] h-[32px]' : 'w-[50px] h-[50px]'
+          }`} style={{ minHeight: isMobile ? '32px' : '50px' }}>
             <img 
               src={gifSrc} 
               alt={header}
               style={{ 
-                width: '50px', 
-                height: '50px',
+                width: isMobile ? '32px' : '50px', 
+                height: isMobile ? '32px' : '50px',
                 objectFit: 'contain',
                 opacity: 0.7
               }}
             />
           </div>
         ) : (
-          <div className="text-5xl">{avatar}</div>
+          <div className={isMobile ? 'text-3xl' : 'text-5xl'}>{avatar}</div>
         )}
       </div>
       
       {/* Header */}
       <h3 
-        className="text-xl font-lato-bold text-center mb-4 text-primary"
+        className={`font-lato-bold text-center text-primary ${
+          isMobile ? 'text-base mb-2' : 'text-xl mb-4'
+        }`}
       >{header}</h3>
       
       {/* Description text */}
       <p 
-        className="text-base font-lato-light leading-relaxed text-center text-muted-foreground"
+        className={`font-lato-light leading-relaxed text-center text-muted-foreground ${
+          isMobile ? 'text-xs' : 'text-base'
+        }`}
       >{text}</p>
     </div>
   )
@@ -416,11 +445,17 @@ const Transition = () => {
     <section 
       ref={sectionRef}
       id="Transition" 
-      className="relative z-10 pt-40 pb-50 bg-card"
+      className={`relative z-10 bg-card ${
+        isMobile ? 'pt-24 pb-32' : 
+        isTablet ? 'pt-32 pb-40' : 
+        'pt-40 pb-50'
+      }`}
     >
 
       {/* Marquee Cards Container */}
-      <div className="transition-marquee opacity-0 space-y-20 max-w-[1800px] mx-auto mt-24">
+      <div className={`transition-marquee opacity-0 max-w-[1800px] mx-auto ${
+        isMobile ? 'space-y-12 mt-16' : 'space-y-20 mt-24'
+      }`}>
         {/* Top Row - Scrolling Left */}
         <div className="scroller" data-direction="left" data-speed="slow">
           <div className="scroller__inner">

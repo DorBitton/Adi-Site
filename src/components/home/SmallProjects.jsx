@@ -3,19 +3,21 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import { Monitor } from 'lucide-react';
+import { useMobile, useTablet } from '../../hooks/useResponsive';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const SmallProjects = () => {
   const containerRef = useRef(null);
+  const isMobile = useMobile();
+  const isTablet = useTablet();
 
-  const baseUrl = import.meta.env.BASE_URL
+  const baseUrl = import.meta.env.BASE_URL;
   const projects = [
     {
       id: 1,
       title: 'Chocolate Collection',
-      description:
-        'This mini project explores a playful and visually rich interface for presenting different chocolate flavors. The design focuses on smooth micro - interactions and a delightful animation that enhances the sensory feel of chocolate. The goal was to create a simple yet immersive experience - where motion, color, and typography work together to evoke taste and texture in a digital space.',
+      description: 'This mini project explores a playful and visually rich interface for presenting different chocolate flavors. The design focuses on smooth micro - interactions and a delightful animation that enhances the sensory feel of chocolate. The goal was to create a simple yet immersive experience - where motion, color, and typography work together to evoke taste and texture in a digital space.',
       image: `${baseUrl}images/projects/smallProjects/1/1.png`,
       images: Array.from({ length: 6 }, (_, i) => `${baseUrl}images/projects/smallProjects/2/${i + 1}.jpg`),
       tools: 'figma',
@@ -24,8 +26,7 @@ const SmallProjects = () => {
       id: 2,
       title: 'Urban Movement Concept',
       subtitle: 'Under ground station, commerce, residence.',
-      description:
-        'A city in motion. This project transforms everyday movement into an experience - where streets, open spaces, and the train flow together as one living system. The design celebrates rhythm, energy, and the seamless pulse of urban life.',
+      description: 'A city in motion. This project transforms everyday movement into an experience - where streets, open spaces, and the train flow together as one living system. The design celebrates rhythm, energy, and the seamless pulse of urban life.',
       image: `${baseUrl}images/projects/smallProjects/2/1.jpg`,
       images: Array.from({ length: 6 }, (_, i) => `${baseUrl}images/projects/smallProjects/2/${i + 1}.jpg`),
       tools: 'Rhino, Twinmotion, Photoshop, Autocad, AI',
@@ -33,8 +34,7 @@ const SmallProjects = () => {
     {
       id: 3,
       title: 'Coastal Heritage Cities',
-      description:
-        'Inspired by the rhythm of coastal life, this project re imagines a historic seaside city where tradition meets climate-conscious design. Natural light, wind, and shade shape the experience—creating inviting public spaces that breathe with their surroundings. Drawing from the textures of local stone and the patterns of old streets, the design blends heritage with sustainability, crafting a city that feels both timeless and alive.',
+      description: 'Inspired by the rhythm of coastal life, this project re imagines a historic seaside city where tradition meets climate-conscious design. Natural light, wind, and shade shape the experience—creating inviting public spaces that breathe with their surroundings. Drawing from the textures of local stone and the patterns of old streets, the design blends heritage with sustainability, crafting a city that feels both timeless and alive.',
       image: `${baseUrl}images/projects/smallProjects/3/1.jpg`,
       images: Array.from({ length: 6 }, (_, i) => `${baseUrl}images/projects/smallProjects/3/${i + 1}.jpg`),
       tools: 'Rhino, Twinmotion, Photoshop, AI',
@@ -43,139 +43,82 @@ const SmallProjects = () => {
 
   useGSAP(
     () => {
-      if (!containerRef.current) return
+      if (!containerRef.current) return;
       
       const cards = gsap.utils.toArray('.stacked-card', containerRef.current);
-      
       if (!cards.length) return;
 
-      // Set initial states - scoped to container
-      const cardImages = containerRef.current.querySelectorAll('.card__image')
-      const imageContainers = containerRef.current.querySelectorAll('.image-container')
-      const textItems = containerRef.current.querySelectorAll('.card__text-item')
-      
-      if (cardImages.length) gsap.set(cardImages, { clipPath: 'inset(100% 0 0 0)' });
-      if (imageContainers.length) gsap.set(imageContainers, { clipPath: 'inset(100% 0 0 0)' });
-      if (textItems.length) gsap.set(textItems, { opacity: 0, y: 30 });
+      const isMobileView = window.innerWidth <= 480;
+      const isTabletView = window.innerWidth > 480 && window.innerWidth <= 768;
+
+      // Initialize hidden state for all elements
+      gsap.set(containerRef.current.querySelectorAll('.image-container'), { clipPath: 'inset(100% 0 0 0)' });
+      gsap.set(containerRef.current.querySelectorAll('.card__text-item'), { opacity: 0, y: 30 });
 
       cards.forEach((card, i) => {
-        const image = card.querySelector('.card__image');
         const imageContainer = card.querySelector('.image-container');
         const multipleImages = card.querySelectorAll('.card__image-multiple');
         const textItems = card.querySelectorAll('.card__text-item');
-        const project = projects[i];
-        const hasMultipleImages = project.images && project.images.length > 0;
+        const hasMultipleImages = multipleImages.length > 0;
 
-        // Calculate scale based on card position (cards behind get smaller)
-        const scaleValue = 1 - (cards.length - i - 1) * 0.05;
+        // Apply stacking effect only on tablet and desktop
+        if (!isMobileView) {
+          const scaleValue = 1 - (cards.length - i - 1) * 0.05;
+          const pinStart = isTabletView ? `top-=${i * 30} top+=120` : `top-=${i * 40} top+=150`;
+          const pinEnd = isTabletView ? 'bottom-=100 bottom' : 'bottom bottom';
 
-        // Pin and scale animation
-        gsap.to(card, {
-          scale: scaleValue,
-          scrollTrigger: {
-            trigger: card,
-            start: `top-=${i * 40} top+=150`,
-            end: 'bottom bottom',
-            endTrigger: containerRef.current,
-            pin: true,
-            pinSpacing: false,
-            scrub: true,
-            markers: false, // Set to true to debug
-          },
-        });
+          gsap.to(card, {
+            scale: scaleValue,
+            scrollTrigger: {
+              trigger: card,
+              start: pinStart,
+              end: pinEnd,
+              endTrigger: containerRef.current,
+              pin: true,
+              pinSpacing: false,
+              scrub: true,
+            },
+          });
+        }
 
-        // Image and text reveal (happens once)
+        // Reveal animations
         ScrollTrigger.create({
           trigger: card,
-          start: 'top center+=100',
+          start: isMobileView ? 'top bottom-=100' : 'top center+=100',
           once: true,
           onEnter: () => {
-            if (hasMultipleImages && multipleImages.length > 0) {
-              // For multiple images: initial clip reveal, then fade cycle
-              gsap.set(multipleImages, { opacity: 0 });
-              gsap.set(multipleImages[0], { opacity: 1 });
-              
-              // Initial clip reveal on container
-              gsap.to(imageContainer, {
-                clipPath: 'inset(0% 0 0 0)',
-                duration: 1.5,
-                ease: 'power3.out',
-                onComplete: () => {
-                  // Start fade cycle after clip reveal completes
-                  // Create fade in/out cycle for multiple images
-                  // Images crossfade: one fades out while the next fades in
-                  const fadeTimeline = gsap.timeline({ repeat: -1 });
-                  const imageDuration = 3; // Time each image is fully visible (seconds)
-                  const fadeDuration = 1.5; // Fade transition duration (seconds)
-                  
-                  multipleImages.forEach((img, imgIndex) => {
-                    const switchTime = imgIndex * imageDuration;
-                    const nextIndex = (imgIndex + 1) % multipleImages.length;
-                    const nextImg = multipleImages[nextIndex];
-                    
-                    if (imgIndex === 0) {
-                      // First image: fade out when switching to next
-                      fadeTimeline.to(img, {
-                        opacity: 0,
-                        duration: fadeDuration,
-                        ease: 'power2.inOut',
-                      }, switchTime);
-                      
-                      // Fade in next image at the same time
-                      fadeTimeline.to(nextImg, {
-                        opacity: 1,
-                        duration: fadeDuration,
-                        ease: 'power2.inOut',
-                      }, switchTime);
-                    } else if (imgIndex < multipleImages.length - 1) {
-                      // Middle images: fade out when switching to next
-                      fadeTimeline.to(img, {
-                        opacity: 0,
-                        duration: fadeDuration,
-                        ease: 'power2.inOut',
-                      }, switchTime);
-                      
-                      // Fade in next image at the same time
-                      fadeTimeline.to(nextImg, {
-                        opacity: 1,
-                        duration: fadeDuration,
-                        ease: 'power2.inOut',
-                      }, switchTime);
-                    } else {
-                      // Last image: fade out and loop back to first
-                      fadeTimeline.to(img, {
-                        opacity: 0,
-                        duration: fadeDuration,
-                        ease: 'power2.inOut',
-                      }, switchTime);
-                      
-                      // Fade in first image to complete the loop
-                      fadeTimeline.to(multipleImages[0], {
-                        opacity: 1,
-                        duration: fadeDuration,
-                        ease: 'power2.inOut',
-                      }, switchTime);
-                    }
+            // Reveal image container
+            gsap.to(imageContainer, {
+              clipPath: 'inset(0% 0 0 0)',
+              duration: 1.5,
+              ease: 'power3.out',
+              onComplete: () => {
+                // Start image crossfade cycle for multiple images
+                if (hasMultipleImages) {
+                  gsap.set(multipleImages, { opacity: 0 });
+                  gsap.set(multipleImages[0], { opacity: 1 });
+
+                  const timeline = gsap.timeline({ repeat: -1 });
+                  multipleImages.forEach((img, idx) => {
+                    const nextImg = multipleImages[(idx + 1) % multipleImages.length];
+                    timeline.to([img, nextImg], {
+                      opacity: (i) => i === 0 ? 0 : 1,
+                      duration: 1.5,
+                      ease: 'power2.inOut',
+                    }, idx * 3);
                   });
                 }
-              });
-            } else {
-              // Single image reveal
-              gsap.to(image, {
-                clipPath: 'inset(0% 0 0 0)',
-                duration: 1.5,
-                ease: 'power3.out',
-              });
-            }
+              }
+            });
 
-            // Text reveal with stagger
+            // Reveal text with stagger
             gsap.to(textItems, {
               opacity: 1,
               y: 0,
               duration: 1,
               stagger: 0.15,
               ease: 'power3.out',
-              delay: 0.3, // Start slightly after image begins
+              delay: 0.3,
             });
           },
         });
@@ -184,30 +127,46 @@ const SmallProjects = () => {
     { scope: containerRef, dependencies: [] }
   );
 
+  // Helper function to get responsive image class
+  const getImageClass = () => {
+    if (isMobile) return 'h-[250px] order-1';
+    if (isTablet) return 'md:w-1/2 h-[350px] md:h-full';
+    return 'md:w-1/2 h-[50%] md:h-full';
+  };
+
+  // Helper function to get responsive text class
+  const getTextClass = () => {
+    if (isMobile) return 'p-6 h-auto order-2';
+    if (isTablet) return 'md:w-1/2 p-8 h-auto';
+    return 'md:w-1/2 h-[50%] md:h-full p-8 md:p-12';
+  };
+
   return (
     <section
       ref={containerRef}
-      className="relative w-full min-h-screen py-32 px-4 sm:px-6 md:px-8 bg-card"
+      className={`relative w-full min-h-screen bg-card z-10 ${
+        isMobile ? 'py-16 px-4' : isTablet ? 'py-24 px-6' : 'py-32 px-4 sm:px-6 md:px-8'
+      }`}
     >
       <div className="max-w-[170rem] mx-auto">
         <div className="cards-container relative">
           {projects.map((project, i) => {
-            // Alternate layout: even index (0, 2) = image left, odd index (1) = image right
             const imageLeft = i % 2 === 0;
-            const textOrder = imageLeft ? 'md:order-2' : 'md:order-1';
-            const imageOrder = imageLeft ? 'md:order-1' : 'md:order-2';
+            const textOrder = !isMobile && (imageLeft ? 'md:order-2' : 'md:order-1');
+            const imageOrder = !isMobile && (imageLeft ? 'md:order-1' : 'md:order-2');
             
             return (
               <div
                 key={project.id}
-                className="stacked-card mb-8 last:mb-0"
-                style={{ zIndex: i + 1 }}
+                className={`stacked-card ${isMobile ? 'mb-12' : 'mb-8'} last:mb-0`}
+                style={{ zIndex: isMobile ? 1 : i + 1 }}
               >
-                <div className="card-inner w-full h-[40vh] bg-card border-2 border-border rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
+                <div className={`card-inner w-full bg-card border-2 border-border rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row ${
+                  isMobile ? 'h-auto min-h-[500px]' : isTablet ? 'h-auto min-h-[600px]' : 'h-[40vh]'
+                }`}>
                   {/* Image Section */}
-                  <div className={`relative w-full md:w-1/2 h-[50%] md:h-full overflow-hidden order-1 ${imageOrder} image-container flex items-center justify-center bg-card`}>
-                    {project.images && project.images.length > 0 ? (
-                      // Multiple images with fade effect
+                  <div className={`relative w-full overflow-hidden image-container flex items-center justify-center bg-card ${getImageClass()} ${imageOrder}`}>
+                    {project.images?.length > 0 ? (
                       <>
                         {project.images.map((imgSrc, imgIndex) => (
                           <img
@@ -223,10 +182,12 @@ const SmallProjects = () => {
                             }}
                           />
                         ))}
-                        <div className="absolute w-[90%] h-[90%] bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none rounded-2xl" style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }} />
+                        <div 
+                          className="absolute w-[90%] h-[90%] bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none rounded-2xl" 
+                          style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }} 
+                        />
                       </>
                     ) : (
-                      // Single image
                       <>
                         <img
                           src={project.image}
@@ -239,27 +200,41 @@ const SmallProjects = () => {
                             transform: 'translate(-50%, -50%)'
                           }}
                         />
-                        <div className="absolute w-[90%] h-[90%] bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none rounded-2xl" style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }} />
+                        <div 
+                          className="absolute w-[90%] h-[90%] bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none rounded-2xl" 
+                          style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }} 
+                        />
                       </>
                     )}
                   </div>
 
                   {/* Text Section */}
-                  <div className={`w-full md:w-1/2 h-[50%] md:h-full p-8 md:p-12 flex flex-col justify-center bg-card order-2 ${textOrder}`}>
-                    <h3 className="card__text-item text-[28px] font-lato-bold mb-4 text-foreground">
+                  <div className={`w-full flex flex-col justify-center bg-card ${getTextClass()} ${textOrder}`}>
+                    <h3 className={`card__text-item font-lato-bold mb-4 text-foreground ${
+                      isMobile ? 'text-[24px]' : isTablet ? 'text-[26px]' : 'text-[28px]'
+                    }`}>
                       {project.title}
                     </h3>
+                    
                     {project.subtitle && (
-                      <p className="card__text-item text-[20px] font-lato-light font-light text-muted-foreground mb-3 w-full md:w-4/5 hidden md:block">
+                      <p className={`card__text-item font-lato-light font-light text-muted-foreground mb-3 ${
+                        isMobile ? 'text-[16px]' : isTablet ? 'text-[18px]' : 'text-[20px] w-4/5 hidden md:block'
+                      }`}>
                         {project.subtitle}
                       </p>
                     )}
-                    <p className="card__text-item text-[20px] font-lato-light font-light text-muted-foreground mb-6 w-full md:w-4/5 hidden md:block">
+                    
+                    <p className={`card__text-item font-lato-light font-light text-muted-foreground mb-6 ${
+                      isMobile ? 'text-[16px]' : isTablet ? 'text-[18px]' : 'text-[20px] w-4/5 hidden md:block'
+                    }`}>
                       {project.description}
                     </p>
+                    
                     <div className="card__text-item flex items-center gap-2">
-                      <Monitor className="w-4 h-4 text-foreground" />
-                      <span className="text-sm md:text-base text-foreground">{project.tools}</span>
+                      <Monitor className={`text-foreground ${isMobile ? 'w-3 h-3' : 'w-4 h-4'}`} />
+                      <span className={`text-foreground ${isMobile ? 'text-xs' : 'text-sm md:text-base'}`}>
+                        {project.tools}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -268,8 +243,8 @@ const SmallProjects = () => {
           })}
         </div>
         
-        {/* Extra space after cards so last card has room to scroll */}
-        <div className="h-[40vh]" />
+        {/* Extra space for pinning effect on tablet/desktop */}
+        <div className={isMobile ? 'h-0' : isTablet ? 'h-[30vh]' : 'h-[40vh]'} />
       </div>
     </section>
   );
