@@ -93,12 +93,12 @@ const InformationArchitecture = ({ iaRef }) => {
           <div className="max-w-4xl mx-auto">
             <div className="bg-neutral-900/50 border border-neutral-700 rounded-lg p-6 lg:p-8 mb-8">
               <h3
-                className="text-[24px] font-extrabold text-white mb-4"
+                className="text-[24px] font-extrabold text-white mb-4 text-center"
                 style={{ fontFamily: 'Lato, sans-serif' }}
               >
                 User Flow
               </h3>
-              <div className="flex flex-wrap items-center justify-center gap-2 lg:gap-4 text-sm lg:text-base text-white">
+              <div className="flex flex-wrap text-[20px] text-neutral-300 font-light items-center justify-center gap-4 ">
                 <span>Home</span>
                 <span className="text-neutral-500">→</span>
                 <span>Movie Details</span>
@@ -124,7 +124,7 @@ const InformationArchitecture = ({ iaRef }) => {
             {/* Core Screens */}
             <div className="mb-8">
               <h3
-                className="text-xl lg:text-2xl font-extrabold text-white mb-6 text-center"
+                className="text-[24px] font-extrabold text-white mb-6 text-center"
                 style={{ fontFamily: 'Lato, sans-serif' }}
               >
                 Core Screens
@@ -136,14 +136,14 @@ const InformationArchitecture = ({ iaRef }) => {
                     className="bg-neutral-900/50 border border-neutral-700 rounded-lg p-4 lg:p-6"
                   >
                     <h4
-                      className="text-base lg:text-lg font-extrabold text-white mb-2"
+                      className="text-[24px] font-bold text-white mb-2"
                       style={{ fontFamily: 'Lato, sans-serif' }}
                     >
                       {screen.title}
                     </h4>
                     <p
-                      className="text-xs lg:text-sm text-neutral-300 leading-relaxed"
-                      style={{ fontFamily: 'Lato, sans-serif', fontWeight: 300 }}
+                      className="text-[20px] text-neutral-300 font-light leading-relaxed"
+                      style={{ fontFamily: 'Lato-light, sans-serif'}}
                     >
                       {screen.description}
                     </p>
@@ -154,8 +154,8 @@ const InformationArchitecture = ({ iaRef }) => {
 
             {/* Conclusion */}
             <p
-              className="text-sm lg:text-base text-neutral-300 leading-relaxed text-center"
-              style={{ fontFamily: 'Lato, sans-serif', fontWeight: 300 }}
+              className="text-[20px] text-neutral-300 font-light leading-relaxed text-center"
+              style={{ fontFamily: 'Lato-light, sans-serif'}}
             >
               This structure reduces cognitive load and helps users complete purchases quickly and confidently.
             </p>

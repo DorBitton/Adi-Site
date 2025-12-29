@@ -68,23 +68,22 @@ const WireframesSection = ({ wireframesRef }) => {
         <div ref={wireframesRef} className="space-y-12 opacity-100">
           {/* Title */}
           <h2
-            className="text-3xl lg:text-5xl font-extrabold text-center text-white mb-12"
-            style={{ fontFamily: 'Lato, sans-serif' }}
+            className="text-[50px] text-lato-bold font-bold text-center text-white mb-20"
           >
             Lofi Wireframe Sketches
           </h2>
 
           {/* Wireframes Grid */}
-          <div className="flex flex-wrap justify-center items-center gap-6 lg:gap-8">
+          <div className="flex flex-nowrap justify-center items-center gap-11">
             {wireframeImages.map((image, index) => (
               <div
                 key={index}
-                className="relative group flex-shrink-0 w-[180px] lg:w-[220px]"
+                className="relative flex-shrink-0 w-[160px] lg:w-[200px]"
               >
                 <img
                   src={image.src}
                   alt={image.alt}
-                  className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500"
+                  className="w-full h-auto object-contain hover:scale-105 transition-transform duration-500"
                 />
               </div>
             ))}

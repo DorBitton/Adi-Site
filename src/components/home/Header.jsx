@@ -121,9 +121,9 @@ const Header = () => {
                                 <a 
                                     href="#hero" 
                                     onClick={(e) => handleNavClick(e, '#hero')}
-                                    className="text-2xl font-bold transition-all duration-300 font-casta text-foreground hover:scale-105 hover:text-primary"
+                                    className="text-2xl transition-all duration-300 font-lato font-extrabold text-foreground hover:scale-105 hover:text-primary"
                                 >
-                                    Your Name
+                                    Adi G
                                 </a>
                             </div>
 
