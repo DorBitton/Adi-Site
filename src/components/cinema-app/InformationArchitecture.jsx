@@ -136,7 +136,7 @@ const InformationArchitecture = ({ iaRef }) => {
                     className="bg-neutral-900/50 border border-neutral-700 rounded-lg p-4 lg:p-6"
                   >
                     <h4
-                      className="text-[24px] font-bold text-white mb-2"
+                      className="text-[20px] font-bold text-white mb-2"
                       style={{ fontFamily: 'Lato, sans-serif' }}
                     >
                       {screen.title}

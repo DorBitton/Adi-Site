@@ -201,7 +201,7 @@ const Header = () => {
                             onClick={(e) => handleNavClick(e, '#hero')}
                             className="text-xl font-bold font-casta text-foreground transition-all duration-300 hover:scale-105 hover:text-primary"
                         >
-                            Your Name
+                            Adi G
                         </a>
 
                         {/* Mobile Menu Button */}

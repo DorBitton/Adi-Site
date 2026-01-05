@@ -61,7 +61,7 @@ const AboutMe = () => {
       className={`relative w-full bg-card flex flex-col z-10 ${
         isMobile ? 'min-h-[40vh] mt-0 pt-12' : 
         isTablet ? 'min-h-[45vh] mt-[-10vh]' : 
-        'min-h-[50vh] mt-[-30vh]'
+        'min-h-[50vh] mt-[-20vh]'
       }`}
     >
       {/* Header Bar */}

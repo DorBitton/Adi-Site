@@ -140,25 +140,34 @@ const Projects = () => {
                       </p>
                     </div>
 
-                    {/* Images in a line */}
-                    <div className={`flex w-full justify-center items-center ${
-                      isMobile ? 'flex-col gap-3 max-w-full mt-4' : 
-                      isTablet ? 'flex-row flex-wrap gap-3 max-w-3xl mt-6' : 
-                      'flex-row gap-4 max-w-4xl mt-8'
-                    }`}>
-                      {[1, 2, 3, 4].map((index) => (
+                    {/* Images */}
+                    {isMobile ? (
+                      // Mobile: Single iPhone 16 Pro Image
+                      <div className="flex w-full justify-center items-center mt-4">
                         <img
-                          key={index}
-                          src={`${baseUrl}images/projects/CinemaApp/${index}.png`}
-                          alt={`Cinema App screenshot ${index}`}
-                          className={`max-w-full h-auto rounded-lg object-contain ${
-                            isMobile ? 'w-full' : 
-                            isTablet ? 'flex-1 min-w-[45%]' : 
-                            'flex-1'
-                          }`}
+                          src={`${baseUrl}images/cinema-app/Prototype/iPhone 16 Pro.png`}
+                          alt="iPhone 16 Pro - Cinema App"
+                          className="w-full max-w-[493px] h-auto rounded-lg object-contain"
                         />
-                      ))}
-                    </div>
+                      </div>
+                    ) : (
+                      // Tablet/Desktop: 4 Images in a line
+                      <div className={`flex w-full justify-center items-center ${
+                        isTablet ? 'flex-row flex-wrap gap-3 max-w-3xl mt-6' : 
+                        'flex-row gap-4 max-w-4xl mt-8'
+                      }`}>
+                        {[1, 2, 3, 4].map((index) => (
+                          <img
+                            key={index}
+                            src={`${baseUrl}images/projects/CinemaApp/${index}.png`}
+                            alt={`Cinema App screenshot ${index}`}
+                            className={`max-w-full h-auto rounded-lg object-contain ${
+                              isTablet ? 'flex-1 min-w-[45%]' : 'flex-1'
+                            }`}
+                          />
+                        ))}
+                      </div>
+                    )}
                   </div>
 
                   {/* Arrow Button */}
@@ -205,21 +214,34 @@ const Projects = () => {
                       </p>
                     </div>
 
-                    {/* Images in a line */}
-                    <div className="flex flex-row gap-4 w-full max-w-4xl mt-8 justify-center items-center">
-                      {[1, 2, 3, 4].map((index) => (
+                    {/* Images */}
+                    {isMobile ? (
+                      // Mobile: Single iPhone 16 Pro Image
+                      <div className="flex w-full justify-center items-center mt-4">
                         <img
-                          key={index}
-                          src={`${baseUrl}images/projects/CinemaApp/${index}.png`}
-                          alt={`Cinema App screenshot ${index}`}
-                          className={`max-w-full h-auto rounded-lg object-contain ${
-                            isMobile ? 'w-full' : 
-                            isTablet ? 'flex-1 min-w-[45%]' : 
-                            'flex-1'
-                          }`}
+                          src={`${baseUrl}images/cinema-app/Prototype/iPhone 16 Pro.png`}
+                          alt="iPhone 16 Pro - Cinema App"
+                          className="w-full max-w-[493px] h-auto rounded-lg object-contain"
                         />
-                      ))}
-                    </div>
+                      </div>
+                    ) : (
+                      // Tablet/Desktop: 4 Images in a line
+                      <div className={`flex w-full justify-center items-center ${
+                        isTablet ? 'flex-row flex-wrap gap-3 max-w-3xl mt-6' : 
+                        'flex-row gap-4 max-w-4xl mt-8'
+                      }`}>
+                        {[1, 2, 3, 4].map((index) => (
+                          <img
+                            key={index}
+                            src={`${baseUrl}images/projects/CinemaApp/${index}.png`}
+                            alt={`Cinema App screenshot ${index}`}
+                            className={`max-w-full h-auto rounded-lg object-contain ${
+                              isTablet ? 'flex-1 min-w-[45%]' : 'flex-1'
+                            }`}
+                          />
+                        ))}
+                      </div>
+                    )}
                   </div>
 
                   {/* Arrow Button */}

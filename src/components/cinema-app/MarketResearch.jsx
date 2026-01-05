@@ -73,8 +73,8 @@ const MarketResearch = ({ marketResearchRef }) => {
 
           {/* Subtitle */}
           <p
-            className="text-[20px] text-neutral-300 font-light leading-relaxed text-center text-white"
-            style={{ fontFamily: 'Lato-light, sans-serif' }}
+            className="text-[20px] font-light leading-relaxed text-center"
+            style={{ fontFamily: 'Lato-light, sans-serif, fontWeight: 600' }}
           >
             Streaming Apps Overview (General UX Patterns)
           </p>
